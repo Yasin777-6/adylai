@@ -1,138 +1,212 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}Professional Website Builder for Lawyers in Kyrgyzstan{% endblock %}
+{% block title %}AdylAI - Revolutionize Your Legal Practice with AI{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero-section bg-primary text-white py-5">
-    <div class="container">
-        <div class="row align-items-center min-vh-75">
-            <div class="col-lg-6">
-                <h1 class="display-4 fw-bold mb-4">
-                    Create Your Professional Legal Website in Minutes
-                </h1>
-                <p class="lead mb-4">
-                    Build a stunning website for your law practice with AI-powered tools, client chat, and lead management. Designed specifically for lawyers in Kyrgyzstan.
-                </p>
-                <div class="d-flex gap-3 mb-4">
-                    <a href="{% url 'lawyers:register' %}" class="btn btn-light btn-lg">
-                        <i class="fas fa-rocket me-2"></i>Start Free Trial
-                    </a>
-                    <a href="#features" class="btn btn-outline-light btn-lg">
-                        <i class="fas fa-play me-2"></i>View Demo
-                    </a>
-                </div>
-                <div class="d-flex align-items-center">
-                    <div class="me-4">
-                        <i class="fas fa-check text-warning me-2"></i>
-                        <small>No credit card required</small>
+<section class="hero-section">
+    <div class="hero-content">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <div class="hero-badge mb-4">
+                        <span class="badge-text">
+                            <i class="fas fa-sparkles me-2"></i>Powered by Advanced AI
+                        </span>
                     </div>
-                    <div>
-                        <i class="fas fa-check text-warning me-2"></i>
-                        <small>14-day free trial</small>
+                    <h1 class="hero-title mb-4">
+                        The future of legal practice is
+                        <span class="gradient-text">intelligent</span>
+                    </h1>
+                    <p class="hero-subtitle mb-5">
+                        AdylAI transforms how lawyers work with cutting-edge artificial intelligence, 
+                        automated client management, and seamless practice optimization.
+                    </p>
+                    <div class="hero-actions mb-5">
+                        <a href="{% url 'lawyers:register' %}" class="btn btn-hero-primary">
+                            Start Your Transformation
+                            <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                        <a href="#experience" class="btn btn-hero-secondary">
+                            <i class="fas fa-play me-2"></i>
+                            Watch Demo
+                        </a>
+                    </div>
+                    <div class="hero-trust">
+                        <p class="trust-text">Trusted by leading law firms across Kyrgyzstan</p>
+                        <div class="trust-logos">
+                            <div class="trust-item">500+ Lawyers</div>
+                            <div class="trust-item">50+ Law Firms</div>
+                            <div class="trust-item">99.9% Uptime</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="floating-cards">
+            <div class="floating-card card-1">
+                <i class="fas fa-robot"></i>
+                <span>AI Assistant</span>
+            </div>
+            <div class="floating-card card-2">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </div>
+            <div class="floating-card card-3">
+                <i class="fas fa-users"></i>
+                <span>Client Hub</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section id="experience" class="experience-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="experience-content">
+                    <h2 class="section-title mb-4">
+                        Experience the power of AI-driven legal practice
+                    </h2>
+                    <p class="section-subtitle mb-4">
+                        From automated document generation to intelligent client screening, 
+                        AdylAI handles the routine so you can focus on what matters most.
+                    </p>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h6>Smart Automation</h6>
+                                <p>AI handles routine tasks automatically</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h6>Enterprise Security</h6>
+                                <p>Bank-level encryption and compliance</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h6>Multi-Language</h6>
+                                <p>Russian, Kyrgyz, and English support</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="text-center">
-                    <img src="https://via.placeholder.com/600x400/1e3a8a/ffffff?text=Lawyer+Website+Demo" 
-                         alt="Lawyer Website Demo" class="img-fluid rounded shadow-lg">
+                <div class="experience-visual">
+                    <div class="phone-mockup">
+                        <div class="phone-content">
+                            <div class="chat-interface">
+                                <div class="chat-message bot">
+                                    <div class="avatar">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <div class="message">How can I help with your legal case today?</div>
+                                </div>
+                                <div class="chat-message user">
+                                    <div class="message">I need help with contract review</div>
+                                </div>
+                                <div class="chat-message bot">
+                                    <div class="avatar">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <div class="message">I'll analyze your contract and highlight key terms...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Features Section -->
-<section id="features" class="py-5">
+<!-- Features Grid -->
+<section class="features-section">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold">Everything You Need to Grow Your Practice</h2>
-            <p class="lead text-muted">Powerful tools designed specifically for legal professionals</p>
+        <div class="section-header text-center mb-5">
+            <h2 class="section-title">Intelligent features for modern law firms</h2>
+            <p class="section-subtitle">Every tool you need to transform your practice</p>
         </div>
         
-        <div class="row g-4">
-            <div class="col-lg-4">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
-                            <i class="fas fa-globe fa-lg"></i>
-                        </div>
-                        <h5 class="card-title">Professional Website Builder</h5>
-                        <p class="card-text text-muted">
-                            Create stunning websites with our drag-and-drop builder. Choose from legal-specific templates and customize to match your brand.
-                        </p>
+        <div class="features-grid">
+            <div class="feature-card large">
+                <div class="feature-content">
+                    <div class="feature-header">
+                        <i class="fas fa-magic"></i>
+                        <h5>AI Document Generation</h5>
+                    </div>
+                    <p>Generate contracts, pleadings, and legal documents in seconds with our advanced AI engine.</p>
+                </div>
+                <div class="feature-visual">
+                    <div class="document-preview">
+                        <div class="doc-line active"></div>
+                        <div class="doc-line"></div>
+                        <div class="doc-line"></div>
+                        <div class="doc-line short"></div>
                     </div>
                 </div>
             </div>
             
-            <div class="col-lg-4">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
-                            <i class="fas fa-robot fa-lg"></i>
-                        </div>
-                        <h5 class="card-title">AI-Powered Chatbot</h5>
-                        <p class="card-text text-muted">
-                            Engage visitors 24/7 with our intelligent chatbot. Answers legal questions in Russian and Kyrgyz, captures leads automatically.
-                        </p>
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-header">
+                        <i class="fas fa-comments"></i>
+                        <h5>Smart Client Chat</h5>
                     </div>
+                    <p>24/7 AI assistant that qualifies leads and schedules consultations.</p>
                 </div>
             </div>
             
-            <div class="col-lg-4">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
-                            <i class="fas fa-users fa-lg"></i>
-                        </div>
-                        <h5 class="card-title">Lead Management</h5>
-                        <p class="card-text text-muted">
-                            Track and manage client inquiries, schedule consultations, and convert leads into clients with our CRM tools.
-                        </p>
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-header">
+                        <i class="fas fa-analytics"></i>
+                        <h5>Practice Analytics</h5>
                     </div>
+                    <p>Data-driven insights to optimize your practice performance.</p>
                 </div>
             </div>
             
-            <div class="col-lg-4">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
-                            <i class="fas fa-chart-line fa-lg"></i>
-                        </div>
-                        <h5 class="card-title">Analytics & Insights</h5>
-                        <p class="card-text text-muted">
-                            Track website performance, visitor behavior, and lead conversion rates with detailed analytics dashboard.
-                        </p>
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-header">
+                        <i class="fas fa-calendar-check"></i>
+                        <h5>Automated Scheduling</h5>
                     </div>
+                    <p>Smart calendar management with automatic appointment booking.</p>
                 </div>
             </div>
             
-            <div class="col-lg-4">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <div class="bg-danger text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
-                            <i class="fas fa-language fa-lg"></i>
-                        </div>
-                        <h5 class="card-title">Multi-Language Support</h5>
-                        <p class="card-text text-muted">
-                            Serve clients in Russian, Kyrgyz, and English. Your website and chatbot adapt to your clients' preferred language.
-                        </p>
+            <div class="feature-card large">
+                <div class="feature-content">
+                    <div class="feature-header">
+                        <i class="fas fa-network-wired"></i>
+                        <h5>Case Management Hub</h5>
                     </div>
+                    <p>Centralized workspace for all your cases, clients, and documents with AI-powered organization.</p>
                 </div>
-            </div>
-            
-            <div class="col-lg-4">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <div class="bg-secondary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
-                            <i class="fas fa-shield-alt fa-lg"></i>
-                        </div>
-                        <h5 class="card-title">Secure & Compliant</h5>
-                        <p class="card-text text-muted">
-                            Built with legal industry standards in mind. Secure client data handling and privacy compliance included.
-                        </p>
+                <div class="feature-visual">
+                    <div class="dashboard-preview">
+                        <div class="dash-item"></div>
+                        <div class="dash-item"></div>
+                        <div class="dash-item"></div>
+                        <div class="dash-chart"></div>
                     </div>
                 </div>
             </div>
@@ -141,104 +215,134 @@
 </section>
 
 <!-- Pricing Section -->
-<section class="py-5 bg-light">
+<section class="pricing-section">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold">Simple, Transparent Pricing</h2>
-            <p class="lead text-muted">Choose the plan that's right for your practice</p>
+        <div class="section-header text-center mb-5">
+            <h2 class="section-title">Choose your plan</h2>
+            <p class="section-subtitle">Transparent pricing that scales with your practice</p>
         </div>
         
-        <div class="row g-4 justify-content-center">
-            <div class="col-lg-4">
-                <div class="card h-100">
-                    <div class="card-header text-center bg-white">
-                        <h5 class="card-title mb-0">Basic</h5>
-                        <div class="mt-3">
-                            <span class="h3 fw-bold">$50</span>
-                            <span class="text-muted">/month</span>
-                        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h5>Starter</h5>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount">99</span>
+                        <span class="period">/month</span>
                     </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Professional Website</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Basic AI Chatbot</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Lead Capture Forms</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Email Support</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Mobile Responsive</li>
-                        </ul>
+                    <p>Perfect for solo practitioners</p>
+                </div>
+                <div class="pricing-features">
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>AI Document Assistant</span>
                     </div>
-                    <div class="card-footer bg-white">
-                        <a href="{% url 'lawyers:register' %}" class="btn btn-outline-primary w-100">Start Free Trial</a>
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>Client Chat Portal</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>Basic Analytics</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>Email Support</span>
                     </div>
                 </div>
+                <a href="{% url 'lawyers:register' %}" class="btn btn-pricing">Start Free Trial</a>
             </div>
             
-            <div class="col-lg-4">
-                <div class="card h-100 border-primary">
-                    <div class="card-header text-center bg-primary text-white">
-                        <h5 class="card-title mb-0">Pro</h5>
-                        <div class="mt-3">
-                            <span class="h3 fw-bold">$150</span>
-                            <span>/month</span>
-                        </div>
-                        <small class="badge bg-warning text-dark">Most Popular</small>
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Most Popular</div>
+                <div class="pricing-header">
+                    <h5>Professional</h5>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount">199</span>
+                        <span class="period">/month</span>
                     </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Everything in Basic</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Advanced AI Features</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Lead Management CRM</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Analytics Dashboard</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Priority Support</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Custom Domain</li>
-                        </ul>
+                    <p>For growing law firms</p>
+                </div>
+                <div class="pricing-features">
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>Everything in Starter</span>
                     </div>
-                    <div class="card-footer bg-white">
-                        <a href="{% url 'lawyers:register' %}" class="btn btn-primary w-100">Start Free Trial</a>
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>Advanced AI Features</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>Case Management</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>Team Collaboration</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>Priority Support</span>
                     </div>
                 </div>
+                <a href="{% url 'lawyers:register' %}" class="btn btn-pricing-featured">Start Free Trial</a>
             </div>
             
-            <div class="col-lg-4">
-                <div class="card h-100">
-                    <div class="card-header text-center bg-white">
-                        <h5 class="card-title mb-0">Premium</h5>
-                        <div class="mt-3">
-                            <span class="h3 fw-bold">$300</span>
-                            <span class="text-muted">/month</span>
-                        </div>
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h5>Enterprise</h5>
+                    <div class="price">
+                        <span class="currency">$</span>
+                        <span class="amount">399</span>
+                        <span class="period">/month</span>
                     </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Everything in Pro</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>White-label Solution</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Advanced Integrations</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Dedicated Support</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Custom Development</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Multi-office Support</li>
-                        </ul>
+                    <p>For large law firms</p>
+                </div>
+                <div class="pricing-features">
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>Everything in Professional</span>
                     </div>
-                    <div class="card-footer bg-white">
-                        <a href="{% url 'lawyers:register' %}" class="btn btn-outline-primary w-100">Contact Sales</a>
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>Custom AI Training</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>White-label Solution</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>API Access</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check"></i>
+                        <span>Dedicated Support</span>
                     </div>
                 </div>
+                <a href="{% url 'lawyers:register' %}" class="btn btn-pricing">Contact Sales</a>
             </div>
         </div>
     </div>
 </section>
 
 <!-- CTA Section -->
-<section class="py-5 bg-primary text-white">
+<section class="cta-section">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
-                <h3 class="fw-bold mb-2">Ready to Grow Your Legal Practice?</h3>
-                <p class="mb-0">Join hundreds of lawyers in Kyrgyzstan who trust LawyerBuilder for their online presence.</p>
-            </div>
-            <div class="col-lg-4 text-lg-end">
-                <a href="{% url 'lawyers:register' %}" class="btn btn-light btn-lg">
-                    <i class="fas fa-arrow-right me-2"></i>Get Started Today
+        <div class="cta-content text-center">
+            <h2 class="cta-title">Ready to transform your practice?</h2>
+            <p class="cta-subtitle">Join the AI revolution in legal services. Start your free trial today.</p>
+            <div class="cta-actions">
+                <a href="{% url 'lawyers:register' %}" class="btn btn-cta-primary">
+                    Start Free Trial
+                    <i class="fas fa-arrow-right ms-2"></i>
                 </a>
+                <div class="cta-note">
+                    <i class="fas fa-shield-check me-2"></i>
+                    No credit card required • 14-day free trial • Cancel anytime
+                </div>
             </div>
         </div>
     </div>
@@ -247,21 +351,737 @@
 
 {% block extra_css %}
 <style>
-    .hero-section {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+/* Apple-inspired CSS */
+:root {
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+    --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1e1e2e 0%, #2a2d47 50%, #464a6b 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 219, 226, 0.3) 0%, transparent 50%);
+    animation: aurora 10s ease-in-out infinite alternate;
+}
+
+@keyframes aurora {
+    0% { opacity: 1; transform: translateX(0%) rotate(0deg); }
+    100% { opacity: 0.8; transform: translateX(5%) rotate(1deg); }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 8rem 0;
+}
+
+.hero-badge {
+    margin-bottom: 2rem;
+}
+
+.badge-text {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    display: inline-block;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 3s ease-in-out infinite alternate;
+}
+
+@keyframes gradient-shift {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(20deg); }
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-hero-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-light);
+}
+
+.btn-hero-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+.btn-hero-secondary {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-hero-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    color: white;
+}
+
+.hero-trust {
+    margin-top: 3rem;
+}
+
+.trust-text {
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.trust-logos {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.trust-item {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Floating Cards */
+.hero-visual {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floating-cards {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.floating-card {
+    position: absolute;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.card-1 {
+    top: 20%;
+    right: 10%;
+    animation-name: float1;
+    animation-delay: 0s;
+}
+
+.card-2 {
+    bottom: 30%;
+    left: 10%;
+    animation-name: float2;
+    animation-delay: 2s;
+}
+
+.card-3 {
+    top: 50%;
+    right: 5%;
+    animation-name: float3;
+    animation-delay: 4s;
+}
+
+@keyframes float1 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes float2 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(-2deg); }
+}
+
+@keyframes float3 {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-25px) rotate(1deg); }
+}
+
+/* Experience Section */
+.experience-section {
+    padding: 8rem 0;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.section-title {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #1a202c;
+    margin-bottom: 1.5rem;
+}
+
+.section-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: #4a5568;
+}
+
+.feature-list {
+    margin-top: 2rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+.feature-text h6 {
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 0.25rem;
+}
+
+.feature-text p {
+    color: #4a5568;
+    margin: 0;
+}
+
+/* Phone Mockup */
+.experience-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+}
+
+.phone-mockup {
+    width: 300px;
+    height: 600px;
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    border-radius: 30px;
+    padding: 20px;
+    position: relative;
+    box-shadow: var(--shadow-heavy);
+}
+
+.phone-content {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.chat-interface {
+    padding: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.chat-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.chat-message.user {
+    flex-direction: row-reverse;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+}
+
+.message {
+    background: #f1f5f9;
+    padding: 0.75rem 1rem;
+    border-radius: 16px;
+    max-width: 200px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.chat-message.user .message {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+/* Features Grid */
+.features-section {
+    padding: 8rem 0;
+    background: #f8fafc;
+}
+
+.section-header {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: white;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card.large {
+    grid-column: span 2;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.feature-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.feature-header i {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.feature-header h5 {
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0;
+}
+
+.feature-content p {
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+/* Visual Elements */
+.document-preview {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+
+.doc-line {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.doc-line.active {
+    background: var(--gradient-primary);
+    animation: typing 2s ease-in-out infinite;
+}
+
+.doc-line.short {
+    width: 60%;
+}
+
+@keyframes typing {
+    0%, 100% { width: 100%; }
+    50% { width: 20%; }
+}
+
+.dashboard-preview {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.dash-item {
+    height: 40px;
+    background: var(--gradient-primary);
+    border-radius: 8px;
+    opacity: 0.8;
+}
+
+.dash-chart {
+    grid-column: span 2;
+    height: 60px;
+    background: var(--gradient-accent);
+    border-radius: 8px;
+    opacity: 0.8;
+}
+
+/* Pricing Section */
+.pricing-section {
+    padding: 8rem 0;
+    background: white;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.pricing-card {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 2rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.pricing-card.featured {
+    border-color: #667eea;
+    transform: scale(1.05);
+    box-shadow: var(--shadow-heavy);
+}
+
+.pricing-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-light);
+}
+
+.pricing-card.featured:hover {
+    transform: scale(1.05) translateY(-8px);
+}
+
+.pricing-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gradient-primary);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.pricing-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.pricing-header h5 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 1rem;
+}
+
+.price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.currency {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.amount {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #1a202c;
+}
+
+.period {
+    font-size: 1.25rem;
+    color: #4a5568;
+    margin-left: 0.25rem;
+}
+
+.pricing-header p {
+    color: #4a5568;
+    margin: 0;
+}
+
+.pricing-features {
+    margin-bottom: 2rem;
+}
+
+.feature-check {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.feature-check i {
+    color: #10b981;
+    font-size: 1.1rem;
+}
+
+.feature-check span {
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.btn-pricing {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    background: white;
+    color: #1a202c;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.btn-pricing:hover {
+    border-color: #667eea;
+    color: #667eea;
+}
+
+.btn-pricing-featured {
+    width: 100%;
+    padding: 1rem;
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.btn-pricing-featured:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    color: white;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 8rem 0;
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    color: white;
+    text-align: center;
+}
+
+.cta-title {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.cta-subtitle {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-cta-primary {
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+    padding: 1.25rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-light);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+.btn-cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+.cta-note {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
     }
     
-    .min-vh-75 {
-        min-height: 75vh;
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
     }
     
-    .card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .btn-hero-primary,
+    .btn-hero-secondary {
+        width: 100%;
+        max-width: 280px;
     }
     
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    .floating-card {
+        display: none;
     }
+    
+    .feature-card.large {
+        grid-column: span 1;
+    }
+    
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pricing-card.featured {
+        transform: none;
+    }
+    
+    .phone-mockup {
+        width: 250px;
+        height: 500px;
+    }
+    
+    .experience-visual {
+        height: 400px;
+        margin-top: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content {
+        padding: 4rem 0;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
 {% endblock %} 
