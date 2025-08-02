@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Professional Website Builder for Lawyers in Kyrgyzstan{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">
+                    Create Your Professional Legal Website in Minutes
+                </h1>
+                <p class="lead mb-4">
+                    Build a stunning website for your law practice with AI-powered tools, client chat, and lead management. Designed specifically for lawyers in Kyrgyzstan.
+                </p>
+                <div class="d-flex gap-3 mb-4">
+                    <a href="{% url 'lawyers:register' %}" class="btn btn-light btn-lg">
+                        <i class="fas fa-rocket me-2"></i>Start Free Trial
+                    </a>
+                    <a href="#features" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-play me-2"></i>View Demo
+                    </a>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="me-4">
+                        <i class="fas fa-check text-warning me-2"></i>
+                        <small>No credit card required</small>
+                    </div>
+                    <div>
+                        <i class="fas fa-check text-warning me-2"></i>
+                        <small>14-day free trial</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <img src="https://via.placeholder.com/600x400/1e3a8a/ffffff?text=Lawyer+Website+Demo" 
+                         alt="Lawyer Website Demo" class="img-fluid rounded shadow-lg">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Everything You Need to Grow Your Practice</h2>
+            <p class="lead text-muted">Powerful tools designed specifically for legal professionals</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-globe fa-lg"></i>
+                        </div>
+                        <h5 class="card-title">Professional Website Builder</h5>
+                        <p class="card-text text-muted">
+                            Create stunning websites with our drag-and-drop builder. Choose from legal-specific templates and customize to match your brand.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-robot fa-lg"></i>
+                        </div>
+                        <h5 class="card-title">AI-Powered Chatbot</h5>
+                        <p class="card-text text-muted">
+                            Engage visitors 24/7 with our intelligent chatbot. Answers legal questions in Russian and Kyrgyz, captures leads automatically.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-users fa-lg"></i>
+                        </div>
+                        <h5 class="card-title">Lead Management</h5>
+                        <p class="card-text text-muted">
+                            Track and manage client inquiries, schedule consultations, and convert leads into clients with our CRM tools.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-chart-line fa-lg"></i>
+                        </div>
+                        <h5 class="card-title">Analytics & Insights</h5>
+                        <p class="card-text text-muted">
+                            Track website performance, visitor behavior, and lead conversion rates with detailed analytics dashboard.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="bg-danger text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-language fa-lg"></i>
+                        </div>
+                        <h5 class="card-title">Multi-Language Support</h5>
+                        <p class="card-text text-muted">
+                            Serve clients in Russian, Kyrgyz, and English. Your website and chatbot adapt to your clients' preferred language.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="bg-secondary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-shield-alt fa-lg"></i>
+                        </div>
+                        <h5 class="card-title">Secure & Compliant</h5>
+                        <p class="card-text text-muted">
+                            Built with legal industry standards in mind. Secure client data handling and privacy compliance included.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Simple, Transparent Pricing</h2>
+            <p class="lead text-muted">Choose the plan that's right for your practice</p>
+        </div>
+        
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-4">
+                <div class="card h-100">
+                    <div class="card-header text-center bg-white">
+                        <h5 class="card-title mb-0">Basic</h5>
+                        <div class="mt-3">
+                            <span class="h3 fw-bold">$50</span>
+                            <span class="text-muted">/month</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Professional Website</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Basic AI Chatbot</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Lead Capture Forms</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Email Support</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Mobile Responsive</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <a href="{% url 'lawyers:register' %}" class="btn btn-outline-primary w-100">Start Free Trial</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card h-100 border-primary">
+                    <div class="card-header text-center bg-primary text-white">
+                        <h5 class="card-title mb-0">Pro</h5>
+                        <div class="mt-3">
+                            <span class="h3 fw-bold">$150</span>
+                            <span>/month</span>
+                        </div>
+                        <small class="badge bg-warning text-dark">Most Popular</small>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Everything in Basic</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Advanced AI Features</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Lead Management CRM</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Analytics Dashboard</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Priority Support</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Custom Domain</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <a href="{% url 'lawyers:register' %}" class="btn btn-primary w-100">Start Free Trial</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card h-100">
+                    <div class="card-header text-center bg-white">
+                        <h5 class="card-title mb-0">Premium</h5>
+                        <div class="mt-3">
+                            <span class="h3 fw-bold">$300</span>
+                            <span class="text-muted">/month</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Everything in Pro</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>White-label Solution</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Advanced Integrations</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Dedicated Support</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Custom Development</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Multi-office Support</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <a href="{% url 'lawyers:register' %}" class="btn btn-outline-primary w-100">Contact Sales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h3 class="fw-bold mb-2">Ready to Grow Your Legal Practice?</h3>
+                <p class="mb-0">Join hundreds of lawyers in Kyrgyzstan who trust LawyerBuilder for their online presence.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{% url 'lawyers:register' %}" class="btn btn-light btn-lg">
+                    <i class="fas fa-arrow-right me-2"></i>Get Started Today
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    }
+    
+    .min-vh-75 {
+        min-height: 75vh;
+    }
+    
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+</style>
+{% endblock %} 

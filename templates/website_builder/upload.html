@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Upload Media - Website Builder{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center py-5">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Upload Media Files</h4>
+                    <small class="text-muted">Add photos and documents to your website</small>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Select Files</label>
+                            <input type="file" class="form-control" name="files" multiple accept="image/*">
+                            <small class="form-text text-muted">You can select multiple files. Supported: JPG, PNG, GIF (max 5MB each)</small>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Description (optional)</label>
+                            <textarea class="form-control" name="description" rows="3" placeholder="Describe these files..."></textarea>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'website_builder:asset_list' %}" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-upload me-2"></i>Upload Files
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="alert alert-info mt-4">
+                <i class="fas fa-lightbulb me-2"></i>
+                <strong>Tip:</strong> For best results, upload high-quality professional photos. Your profile photo will be automatically used on your website.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

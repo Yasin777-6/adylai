@@ -1,0 +1,13 @@
+{% extends 'website_builder/public_website.html' %}
+
+{% block extra_js %}
+{{ block.super }}
+<script>
+// Auto-scroll to services section when this page loads
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+    }, 500);
+});
+</script>
+{% endblock %} 

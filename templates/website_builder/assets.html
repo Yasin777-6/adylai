@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Media Assets - Website Builder{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-2 sidebar p-0">
+            <div class="p-3">
+                <div class="text-center mb-4">
+                    <h6 class="mb-1">Website Builder</h6>
+                    <small class="text-muted">{{ request.user.lawyer_profile.full_name }}</small>
+                </div>
+                
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{% url 'website_builder:dashboard' %}">
+                        <i class="fas fa-tachometer-alt"></i>Overview
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:edit' %}">
+                        <i class="fas fa-edit"></i>Edit Content
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:page_list' %}">
+                        <i class="fas fa-file-alt"></i>Pages
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:template_list' %}">
+                        <i class="fas fa-paint-brush"></i>Templates
+                    </a>
+                    <a class="nav-link active" href="{% url 'website_builder:asset_list' %}">
+                        <i class="fas fa-images"></i>Media
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:analytics' %}">
+                        <i class="fas fa-chart-line"></i>Analytics
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-lg-10 main-content">
+            <div class="container-fluid py-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Media Assets</h2>
+                    <a href="{% url 'website_builder:asset_upload' %}" class="btn btn-primary">
+                        <i class="fas fa-upload me-2"></i>Upload Media
+                    </a>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Your Media Files</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-images fa-4x text-muted mb-3"></i>
+                                    <h5>No media files yet</h5>
+                                    <p class="text-muted">Upload photos, logos, and documents for your website</p>
+                                    <a href="{% url 'website_builder:asset_upload' %}" class="btn btn-primary">
+                                        <i class="fas fa-upload me-2"></i>Upload First File
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Recommended Images</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="fas fa-user-circle text-primary me-2"></i>
+                                        <strong>Professional Headshot</strong>
+                                        <br><small class="text-muted">High quality portrait photo</small>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-building text-primary me-2"></i>
+                                        <strong>Office Photos</strong>
+                                        <br><small class="text-muted">Interior/exterior office shots</small>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-certificate text-primary me-2"></i>
+                                        <strong>Certificates</strong>
+                                        <br><small class="text-muted">Diplomas and certifications</small>
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-balance-scale text-primary me-2"></i>
+                                        <strong>Logo/Branding</strong>
+                                        <br><small class="text-muted">Law firm logo or personal brand</small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6 class="mb-0">Upload Guidelines</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled small">
+                                    <li><i class="fas fa-check text-success me-1"></i>Max file size: 5MB</li>
+                                    <li><i class="fas fa-check text-success me-1"></i>Formats: JPG, PNG, GIF</li>
+                                    <li><i class="fas fa-check text-success me-1"></i>Recommended: 1200x800px</li>
+                                    <li><i class="fas fa-check text-success me-1"></i>Professional quality</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

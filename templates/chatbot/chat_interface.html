@@ -1,0 +1,837 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ chat_config.primary_language|default:'ru' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Консультация с {{ chat_config.lawyer_name }}</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #e2e8f0;
+            --success-color: #059669;
+            --warning-color: #d97706;
+            --bg-light: #f8fafc;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.1);
+        }
+        
+        .chat-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .lawyer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .chat-info h5 {
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .chat-info p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f7fafc;
+            scroll-behavior: smooth;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .message.user {
+            flex-direction: row-reverse;
+        }
+        
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .message.lawyer .message-avatar {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .message.user .message-avatar {
+            background: var(--success-color);
+            color: white;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 15px;
+            line-height: 1.4;
+            position: relative;
+        }
+        
+        .message.lawyer .message-content {
+            background: white;
+            color: var(--text-dark);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .message.user .message-content {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .message-time {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .quick-reply-btn {
+            background: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quick-reply-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .appointment-card {
+            background: white;
+            border: 2px solid var(--success-color);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.1);
+        }
+        
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-light);
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+            30% { opacity: 1; transform: scale(1); }
+        }
+        
+        .chat-input {
+            background: white;
+            border-top: 1px solid var(--border-color);
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+        }
+        
+        .input-field {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            padding: 12px 20px;
+            font-size: 15px;
+            resize: none;
+            min-height: 50px;
+            max-height: 120px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        
+        .input-field:focus {
+            border-color: var(--primary-color);
+        }
+        
+        .send-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 18px;
+        }
+        
+        .send-btn:hover:not(:disabled) {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+        
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .calendar-widget {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 10px 0;
+            border: 1px solid var(--border-color);
+        }
+        
+        .time-slot {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        
+        .time-slot:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .time-slot.selected {
+            background: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+        
+        .welcome-screen {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+        
+        .welcome-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .chat-container {
+                height: 100vh;
+                border-radius: 0;
+            }
+            
+            .message-content {
+                max-width: 85%;
+            }
+            
+            .chat-header {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Chat Header -->
+        <div class="chat-header">
+            <div class="lawyer-avatar">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="chat-info">
+                <h5>{{ chat_config.lawyer_name }}</h5>
+                <p>Юрист • На связи</p>
+            </div>
+            <div class="ms-auto">
+                <button class="btn btn-light btn-sm" onclick="window.close()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Chat Messages -->
+        <div class="chat-messages" id="chatMessages">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="welcome-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <h4>Добро пожаловать на консультацию</h4>
+                <p>Я {{ chat_config.lawyer_name }}, готов помочь вам с правовыми вопросами.</p>
+                <div class="mt-4">
+                    <button class="btn btn-primary" onclick="startConversation()">
+                        <i class="fas fa-comments me-2"></i>Начать консультацию
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Typing indicator -->
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="message-avatar" style="background: var(--primary-color); color: white;">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+                <span class="ms-2 small text-muted">{{ chat_config.lawyer_name }} печатает...</span>
+            </div>
+        </div>
+        
+        <!-- Chat Input -->
+        <div class="chat-input">
+            <textarea 
+                class="input-field" 
+                id="messageInput" 
+                placeholder="Напишите ваше сообщение..."
+                rows="1"
+                disabled
+            ></textarea>
+            <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Chat configuration from Django
+        const chatConfig = {
+            lawyerName: '{{ chat_config.lawyer_name }}',
+            primaryLanguage: '{{ chat_config.primary_language }}',
+            specialties: {{ chat_config.specialties|default:"[]"|safe }},
+            consultationFee: {{ chat_config.consultation_fee|default:0 }},
+            yearsExperience: {{ chat_config.years_experience|default:0 }},
+            service: '{{ service }}'
+        };
+        
+        let conversationState = 'welcome';
+        let userInfo = {};
+        let selectedAppointment = null;
+        let messageCount = 0;
+        
+        // Auto-resize textarea
+        const messageInput = document.getElementById('messageInput');
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+        
+        // Send message on Enter (but allow Shift+Enter for new line)
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        function startConversation() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('messageInput').disabled = false;
+            document.getElementById('sendBtn').disabled = false;
+            
+            // Start with lawyer greeting
+            setTimeout(() => {
+                addLawyerMessage(getGreetingMessage());
+                conversationState = 'greeting';
+            }, 500);
+        }
+        
+        function getGreetingMessage() {
+            const language = chatConfig.primaryLanguage;
+            let greeting = '';
+            
+            if (language === 'ru') {
+                greeting = `Здравствуйте! Меня зовут ${chatConfig.lawyerName}, я юрист `;
+                if (chatConfig.specialties && chatConfig.specialties.length > 0) {
+                    greeting += `специализирующийся на ${chatConfig.specialties.join(', ')}. `;
+                }
+                if (chatConfig.service) {
+                    greeting += `Вижу, вас интересует "${chatConfig.service}". `;
+                }
+                greeting += `Как вас зовут и с каким правовым вопросом вы ко мне обратились?`;
+            } else if (language === 'ky') {
+                greeting = `Саламатсызбы! Менин атым ${chatConfig.lawyerName}, мен юристмин `;
+                if (chatConfig.specialties && chatConfig.specialties.length > 0) {
+                    greeting += `${chatConfig.specialties.join(', ')} боюнча адистешкен. `;
+                }
+                if (chatConfig.service) {
+                    greeting += `"${chatConfig.service}" менен кызыгып жатканыңызды көрүп турам. `;
+                }
+                greeting += `Атыңыз ким жана кандай укуктук суроо менен кайрылып жатасыз?`;
+            } else {
+                greeting = `Hello! My name is ${chatConfig.lawyerName}, I'm a lawyer `;
+                if (chatConfig.specialties && chatConfig.specialties.length > 0) {
+                    greeting += `specializing in ${chatConfig.specialties.join(', ')}. `;
+                }
+                if (chatConfig.service) {
+                    greeting += `I see you're interested in "${chatConfig.service}". `;
+                }
+                greeting += `What's your name and what legal matter can I help you with?`;
+            }
+            
+            return greeting;
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addUserMessage(message);
+            input.value = '';
+            input.style.height = 'auto';
+            
+            // Show typing indicator
+            showTyping();
+            
+            // Process lawyer response based on conversation state
+            setTimeout(() => {
+                hideTyping();
+                processUserMessage(message);
+                messageCount++;
+            }, 1500 + Math.random() * 1000); // Realistic response time
+        }
+        
+        function processUserMessage(message) {
+            const response = generateLawyerResponse(message);
+            addLawyerMessage(response.text, response.quickReplies, response.special);
+            
+            if (response.nextState) {
+                conversationState = response.nextState;
+            }
+        }
+        
+        function generateLawyerResponse(userMessage) {
+            const language = chatConfig.primaryLanguage;
+            
+            switch (conversationState) {
+                case 'greeting':
+                    return handleGreetingResponse(userMessage, language);
+                case 'collecting_phone':
+                    return handlePhoneCollection(userMessage, language);
+                case 'collecting_email':
+                    return handleEmailCollection(userMessage, language);
+                case 'legal_discussion':
+                    return handleLegalDiscussion(userMessage, language);
+                case 'offering_consultation':
+                    return handleConsultationOffer(userMessage, language);
+                case 'booking_appointment':
+                    return handleAppointmentBooking(userMessage, language);
+                default:
+                    return handleGeneralResponse(userMessage, language);
+            }
+        }
+        
+        function handleGreetingResponse(message, language) {
+            // Extract name and legal issue from message
+            const words = message.split(' ');
+            userInfo.name = words[0]; // Assume first word is name
+            userInfo.legalIssue = message;
+            
+            let response = '';
+            if (language === 'ru') {
+                response = `Приятно познакомиться, ${userInfo.name}! Понимаю ваш вопрос. `;
+                response += `Чтобы я мог вам лучше помочь, оставьте ваш номер телефона.`;
+            } else if (language === 'ky') {
+                response = `Таанышканыма кубанычтамын, ${userInfo.name}! Сурооңузду түшүндүм. `;
+                response += `Жакшыраак жардам берүү үчүн, телефон номериңизди калтырыңыз.`;
+            } else {
+                response = `Nice to meet you, ${userInfo.name}! I understand your question. `;
+                response += `To better help you, please leave your phone number.`;
+            }
+            
+            return {
+                text: response,
+                nextState: 'collecting_phone'
+            };
+        }
+        
+        function handlePhoneCollection(message, language) {
+            userInfo.phone = message;
+            
+            let response = '';
+            if (language === 'ru') {
+                response = `Спасибо! Теперь укажите ваш email адрес для записи на консультацию.`;
+            } else if (language === 'ky') {
+                response = `Рахмат! Эми консультацияга жазылуу үчүн email дарегиңизди көрсөтүңүз.`;
+            } else {
+                response = `Thank you! Now please provide your email address for scheduling consultation.`;
+            }
+            
+            return {
+                text: response,
+                nextState: 'collecting_email'
+            };
+        }
+        
+        function handleEmailCollection(message, language) {
+            userInfo.email = message;
+            
+            let response = '';
+            if (language === 'ru') {
+                response = `Отлично, ${userInfo.name}! Теперь по вашему вопросу: `;
+                response += `это довольно серьёзная ситуация, которая требует детального разбора. `;
+                response += `Я могу назначить вам консультацию для подробного обсуждения. `;
+                if (chatConfig.consultationFee > 0) {
+                    response += `Стоимость консультации: ${chatConfig.consultationFee} сом. `;
+                } else {
+                    response += `Первичная консультация бесплатная. `;
+                }
+                response += `Давайте я проверю мое расписание на эту неделю?`;
+            } else if (language === 'ky') {
+                response = `Сонун, ${userInfo.name}! Сиздин сурооңуз боюнча: `;
+                response += `бул өтө олуттуу жагдай, толук талкууну талап кылат. `;
+                response += `Толук талкуу үчүн консультация белгилей алам. `;
+                if (chatConfig.consultationFee > 0) {
+                    response += `Консультациянын баасы: ${chatConfig.consultationFee} сом. `;
+                } else {
+                    response += `Биринчи консультация акысыз. `;
+                }
+                response += `Ушул жумага расписаниемди текшерейинби?`;
+            } else {
+                response = `Excellent, ${userInfo.name}! Regarding your question: `;
+                response += `this is quite a serious situation that requires detailed discussion. `;
+                response += `I can schedule a consultation for you to discuss this thoroughly. `;
+                if (chatConfig.consultationFee > 0) {
+                    response += `Consultation fee: ${chatConfig.consultationFee} som. `;
+                } else {
+                    response += `Initial consultation is free. `;
+                }
+                response += `Let me check my schedule for this week?`;
+            }
+            
+            const quickReplies = language === 'ru' ? ['Да, проверьте расписание', 'Сначала ещё вопросы'] : 
+                               language === 'ky' ? ['Ооба, расписаниени текшериңиз', 'Алгач дагы суроолор'] :
+                               ['Yes, check schedule', 'I have more questions first'];
+            
+            return {
+                text: response,
+                quickReplies: quickReplies,
+                nextState: 'offering_consultation'
+            };
+        }
+        
+        function handleConsultationOffer(message, language) {
+            const wantsSchedule = ['да', 'yes', 'ооба', 'проверьте', 'текшериңиз', 'расписание'].some(word => 
+                message.toLowerCase().includes(word)
+            );
+            
+            if (wantsSchedule) {
+                let response = '';
+                if (language === 'ru') {
+                    response = `Отлично! У меня есть несколько свободных слотов на этой неделе. Выберите удобное время:`;
+                } else if (language === 'ky') {
+                    response = `Сонун! Ушул жумада бир нече бош убактым бар. Ыңгайлуу убакытты тандаңыз:`;
+                } else {
+                    response = `Great! I have several available slots this week. Choose a convenient time:`;
+                }
+                
+                return {
+                    text: response,
+                    special: 'appointment_booking',
+                    nextState: 'booking_appointment'
+                };
+            } else {
+                let response = '';
+                if (language === 'ru') {
+                    response = `Конечно! Задавайте ваши вопросы, я отвечу в рамках общей консультации. `;
+                    response += `Но помните, что для точного решения вашей ситуации лучше встретиться лично.`;
+                } else if (language === 'ky') {
+                    response = `Албетте! Суроолоруңузду бериңиз, жалпы консультация алкагында жооп берем. `;
+                    response += `Бирок эстеп коюңуз, кырдаалыңыздын так чечимин табуу үчүн жеке жолугушуу жакшы.`;
+                } else {
+                    response = `Of course! Ask your questions, I'll answer within general consultation. `;
+                    response += `But remember, for an accurate solution to your situation, it's better to meet in person.`;
+                }
+                
+                return {
+                    text: response,
+                    nextState: 'legal_discussion'
+                };
+            }
+        }
+        
+        function handleAppointmentBooking(message, language) {
+            if (selectedAppointment) {
+                // Confirm booking
+                let response = '';
+                if (language === 'ru') {
+                    response = `✅ Превосходно! Консультация назначена на ${selectedAppointment}. `;
+                    response += `Я свяжусь с вами по телефону ${userInfo.phone} за день до встречи для подтверждения. `;
+                    response += `Также отправлю подтверждение на ${userInfo.email}. `;
+                    response += `До встречи, ${userInfo.name}!`;
+                } else if (language === 'ky') {
+                    response = `✅ Сонун! Консультация ${selectedAppointment} убагына белгиленди. `;
+                    response += `Жолугушуудан бир күн мурун ырастоо үчүн ${userInfo.phone} телефону аркылуу байланышат. `;
+                    response += `Ошондой эле ${userInfo.email} дарегиңизге ырастоо жөнөтөм. `;
+                    response += `Көрүшкөнгө чейин, ${userInfo.name}!`;
+                } else {
+                    response = `✅ Excellent! Consultation scheduled for ${selectedAppointment}. `;
+                    response += `I'll contact you at ${userInfo.phone} one day before the meeting for confirmation. `;
+                    response += `I'll also send confirmation to ${userInfo.email}. `;
+                    response += `See you soon, ${userInfo.name}!`;
+                }
+                
+                // Save appointment to backend
+                saveAppointment();
+                
+                return {
+                    text: response,
+                    nextState: 'completed'
+                };
+            }
+            
+            return { text: 'Пожалуйста, выберите время выше.' };
+        }
+        
+        function handleLegalDiscussion(message, language) {
+            // Provide general legal guidance
+            let response = '';
+            if (language === 'ru') {
+                response = `По данному вопросу могу сказать следующее: каждая ситуация индивидуальна и требует изучения документов. `;
+                response += `В общем случае, по законодательству Кыргызстана... `;
+                response += `Но для вашего конкретного случая рекомендую всё же личную встречу. Записаться на консультацию?`;
+            } else if (language === 'ky') {
+                response = `Бул суроо боюнча төмөнкүдөй айта алам: ар бир жагдай жеке жана документтерди изилдөөнү талап кылат. `;
+                response += `Жалпы алганда, Кыргызстандын мыйзамдары боюнча... `;
+                response += `Бирок сиздин конкреттүү учуруңуз үчүн жеке жолугушууну сунуштайм. Консультацияга жазылабызбы?`;
+            } else {
+                response = `Regarding this question, I can say the following: each situation is individual and requires document review. `;
+                response += `In general, according to Kyrgyzstan legislation... `;
+                response += `But for your specific case, I recommend a personal meeting. Shall we schedule a consultation?`;
+            }
+            
+            const quickReplies = language === 'ru' ? ['Да, записаться', 'Ещё вопросы'] : 
+                               language === 'ky' ? ['Ооба, жазылам', 'Дагы суроолор'] :
+                               ['Yes, schedule', 'More questions'];
+            
+            return {
+                text: response,
+                quickReplies: quickReplies,
+                nextState: 'offering_consultation'
+            };
+        }
+        
+        function addUserMessage(text) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            messageDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="message-content">
+                    ${text}
+                    <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                </div>
+            `;
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+        
+        function addLawyerMessage(text, quickReplies = null, special = null) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message lawyer';
+            
+            let content = `
+                <div class="message-avatar">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="message-content">
+                    ${text}
+                    <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+            `;
+            
+            if (special === 'appointment_booking') {
+                content += `<div class="calendar-widget">
+                    <h6>Доступные времена:</h6>
+                    <div class="row g-2">
+                        <div class="col-6"><div class="time-slot" onclick="selectTimeSlot(this, 'Завтра 10:00')">Завтра 10:00</div></div>
+                        <div class="col-6"><div class="time-slot" onclick="selectTimeSlot(this, 'Завтра 14:00')">Завтра 14:00</div></div>
+                        <div class="col-6"><div class="time-slot" onclick="selectTimeSlot(this, 'Понедельник 9:00')">Понедельник 9:00</div></div>
+                        <div class="col-6"><div class="time-slot" onclick="selectTimeSlot(this, 'Понедельник 15:00')">Понедельник 15:00</div></div>
+                    </div>
+                    <button class="btn btn-primary mt-3 w-100" id="confirmAppointment" style="display:none;" onclick="confirmAppointment()">
+                        Подтвердить время
+                    </button>
+                </div>`;
+            }
+            
+            if (quickReplies) {
+                content += `<div class="quick-replies">`;
+                quickReplies.forEach(reply => {
+                    content += `<div class="quick-reply-btn" onclick="sendQuickReply('${reply}')">${reply}</div>`;
+                });
+                content += `</div>`;
+            }
+            
+            content += `</div>`;
+            messageDiv.innerHTML = content;
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+        
+        function selectTimeSlot(element, time) {
+            // Remove previous selection
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            
+            // Select current
+            element.classList.add('selected');
+            selectedAppointment = time;
+            
+            // Show confirm button
+            document.getElementById('confirmAppointment').style.display = 'block';
+        }
+        
+        function confirmAppointment() {
+            if (selectedAppointment) {
+                const confirmMessage = `Выбрано время: ${selectedAppointment}`;
+                sendQuickReply(confirmMessage);
+            }
+        }
+        
+        function sendQuickReply(text) {
+            addUserMessage(text);
+            
+            // Show typing indicator
+            showTyping();
+            
+            setTimeout(() => {
+                hideTyping();
+                processUserMessage(text);
+            }, 1000);
+        }
+        
+        function showTyping() {
+            document.getElementById('typingIndicator').style.display = 'flex';
+            scrollToBottom();
+        }
+        
+        function hideTyping() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+        
+        function scrollToBottom() {
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function saveAppointment() {
+            // In a real implementation, this would make an API call to save the appointment
+            const appointmentData = {
+                lawyer: '{{ lawyer.domain_slug }}',
+                client_name: userInfo.name,
+                client_phone: userInfo.phone,
+                client_email: userInfo.email,
+                legal_issue: userInfo.legalIssue,
+                scheduled_time: selectedAppointment,
+                source: 'lawyer_chat'
+            };
+            
+            console.log('Saving appointment:', appointmentData);
+            
+            // TODO: Implement actual API call
+            // fetch('/api/appointments/', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(appointmentData)
+            // });
+        }
+    </script>
+</body>
+</html> 

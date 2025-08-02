@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Website Builder - {{ request.user.lawyer_profile.full_name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-2 sidebar p-0">
+            <div class="p-3">
+                <div class="text-center mb-4">
+                    <h6 class="mb-1">Website Builder</h6>
+                    <small class="text-muted">{{ request.user.lawyer_profile.full_name }}</small>
+                </div>
+                
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="{% url 'website_builder:dashboard' %}">
+                        <i class="fas fa-tachometer-alt"></i>Overview
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:edit' %}">
+                        <i class="fas fa-edit"></i>Edit Content
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:page_list' %}">
+                        <i class="fas fa-file-alt"></i>Pages
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:template_list' %}">
+                        <i class="fas fa-paint-brush"></i>Templates
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:asset_list' %}">
+                        <i class="fas fa-images"></i>Media
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:analytics' %}">
+                        <i class="fas fa-chart-line"></i>Analytics
+                    </a>
+                    <hr>
+                    <a class="nav-link" href="{% url 'lawyers:dashboard' %}">
+                        <i class="fas fa-arrow-left"></i>Back to Dashboard
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-lg-10 main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h1 class="page-title">Website Builder</h1>
+                            <p class="page-subtitle">Create and manage your professional legal website</p>
+                        </div>
+                        <div class="col-auto">
+                            <div class="btn-group">
+                                <a href="{% url 'website_builder:preview' %}" class="btn btn-outline-primary" target="_blank">
+                                    <i class="fas fa-eye me-2"></i>Preview
+                                </a>
+                                <a href="{% url 'website_builder:edit' %}" class="btn btn-primary">
+                                    <i class="fas fa-edit me-2"></i>Edit Website
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="container-fluid">
+                <!-- Website Status -->
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-globe fa-lg"></i>
+                                </div>
+                                <h5 class="fw-bold text-success">Published</h5>
+                                <p class="text-muted mb-0">Website Status</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-file-alt fa-lg"></i>
+                                </div>
+                                <h5 class="fw-bold text-primary">5</h5>
+                                <p class="text-muted mb-0">Total Pages</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-images fa-lg"></i>
+                                </div>
+                                <h5 class="fw-bold text-warning">12</h5>
+                                <p class="text-muted mb-0">Media Files</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-eye fa-lg"></i>
+                                </div>
+                                <h5 class="fw-bold text-info">234</h5>
+                                <p class="text-muted mb-0">Monthly Views</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="row g-4 mb-5">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-bolt me-2"></i>Quick Actions
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-lg-3 col-md-6">
+                                        <a href="{% url 'website_builder:edit' %}" class="btn btn-outline-primary w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
+                                            <i class="fas fa-edit fa-2x mb-2"></i>
+                                            <span>Edit Content</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <a href="{% url 'website_builder:page_create' %}" class="btn btn-outline-success w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
+                                            <i class="fas fa-plus fa-2x mb-2"></i>
+                                            <span>Add Page</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <a href="{% url 'website_builder:asset_upload' %}" class="btn btn-outline-warning w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
+                                            <i class="fas fa-upload fa-2x mb-2"></i>
+                                            <span>Upload Media</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <a href="{% url 'website_builder:template_list' %}" class="btn btn-outline-info w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
+                                            <i class="fas fa-paint-brush fa-2x mb-2"></i>
+                                            <span>Change Theme</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Website Preview -->
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-desktop me-2"></i>Website Preview
+                                </h5>
+                                <a href="{% url 'website_builder:preview' %}" class="btn btn-sm btn-outline-primary" target="_blank">
+                                    <i class="fas fa-external-link-alt me-1"></i>Full Preview
+                                </a>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="ratio ratio-16x9">
+                                    <iframe src="{% url 'website_builder:preview' %}" class="border-0" title="Website Preview"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <!-- Recent Activity -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="fas fa-history me-2"></i>Recent Changes
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 32px; height: 32px;">
+                                        <i class="fas fa-edit fa-sm"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <small class="text-muted">Updated homepage content</small>
+                                        <br><small class="text-muted">2 hours ago</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 32px; height: 32px;">
+                                        <i class="fas fa-image fa-sm"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <small class="text-muted">Added new photo gallery</small>
+                                        <br><small class="text-muted">1 day ago</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-warning text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 32px; height: 32px;">
+                                        <i class="fas fa-paint-brush fa-sm"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <small class="text-muted">Changed website theme</small>
+                                        <br><small class="text-muted">3 days ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- SEO Status -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="fas fa-search me-2"></i>SEO Status
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Meta Descriptions</span>
+                                    <span class="badge bg-success">Complete</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Page Titles</span>
+                                    <span class="badge bg-success">Complete</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Image Alt Text</span>
+                                    <span class="badge bg-warning">Partial</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>Mobile Friendly</span>
+                                    <span class="badge bg-success">Yes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

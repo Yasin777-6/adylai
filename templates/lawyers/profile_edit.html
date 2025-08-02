@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Edit Profile - {{ request.user.lawyer_profile.full_name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center py-5">
+        <div class="col-lg-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-user-edit me-2"></i>
+                        Edit Your Profile
+                    </h3>
+                    <p class="mb-0 mt-2">Complete your professional information</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <!-- Basic Information -->
+                            <div class="col-lg-6">
+                                <h5 class="mb-3">
+                                    <i class="fas fa-user me-2"></i>Basic Information
+                                </h5>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.phone.id_for_label }}" class="form-label">Phone Number</label>
+                                    {{ form.phone }}
+                                    {% if form.phone.errors %}
+                                        <div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.bio.id_for_label }}" class="form-label">Biography</label>
+                                    {{ form.bio }}
+                                    {% if form.bio.errors %}
+                                        <div class="text-danger small mt-1">{{ form.bio.errors.0 }}</div>
+                                    {% endif %}
+                                    <small class="form-text text-muted">Tell potential clients about yourself and your experience</small>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.photo.id_for_label }}" class="form-label">Profile Photo</label>
+                                    {{ form.photo }}
+                                    {% if form.photo.errors %}
+                                        <div class="text-danger small mt-1">{{ form.photo.errors.0 }}</div>
+                                    {% endif %}
+                                    <small class="form-text text-muted">Upload a professional headshot (recommended)</small>
+                                </div>
+                            </div>
+                            
+                            <!-- Professional Information -->
+                            <div class="col-lg-6">
+                                <h5 class="mb-3">
+                                    <i class="fas fa-briefcase me-2"></i>Professional Details
+                                </h5>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.license_number.id_for_label }}" class="form-label">License Number</label>
+                                    {{ form.license_number }}
+                                    {% if form.license_number.errors %}
+                                        <div class="text-danger small mt-1">{{ form.license_number.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.years_experience.id_for_label }}" class="form-label">Years of Experience</label>
+                                    {{ form.years_experience }}
+                                    {% if form.years_experience.errors %}
+                                        <div class="text-danger small mt-1">{{ form.years_experience.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.consultation_fee.id_for_label }}" class="form-label">Consultation Fee (KGS)</label>
+                                    {{ form.consultation_fee }}
+                                    {% if form.consultation_fee.errors %}
+                                        <div class="text-danger small mt-1">{{ form.consultation_fee.errors.0 }}</div>
+                                    {% endif %}
+                                    <small class="form-text text-muted">Leave 0 for free initial consultation</small>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Legal Specialties</label>
+                                    <div class="row">
+                                        {% for value, display in form.specialties.field.choices %}
+                                        <div class="col-md-6 mb-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" 
+                                                       name="specialties" value="{{ value }}" 
+                                                       id="specialty_{{ value }}"
+                                                       {% if value in form.specialties.value %}checked{% endif %}>
+                                                <label class="form-check-label" for="specialty_{{ value }}">
+                                                    {{ display }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% if form.specialties.errors %}
+                                        <div class="text-danger small mt-1">{{ form.specialties.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <!-- Website Settings -->
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="mb-3">
+                                    <i class="fas fa-globe me-2"></i>Website Settings
+                                </h5>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.website_theme.id_for_label }}" class="form-label">Website Theme</label>
+                                    {{ form.website_theme }}
+                                    {% if form.website_theme.errors %}
+                                        <div class="text-danger small mt-1">{{ form.website_theme.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.primary_language.id_for_label }}" class="form-label">Primary Language</label>
+                                    {{ form.primary_language }}
+                                    {% if form.primary_language.errors %}
+                                        <div class="text-danger small mt-1">{{ form.primary_language.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'lawyers:profile' %}" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

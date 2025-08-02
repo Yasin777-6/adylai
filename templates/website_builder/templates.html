@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Templates - Website Builder{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-2 sidebar p-0">
+            <div class="p-3">
+                <div class="text-center mb-4">
+                    <h6 class="mb-1">Website Builder</h6>
+                    <small class="text-muted">{{ request.user.lawyer_profile.full_name }}</small>
+                </div>
+                
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{% url 'website_builder:dashboard' %}">
+                        <i class="fas fa-tachometer-alt"></i>Overview
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:edit' %}">
+                        <i class="fas fa-edit"></i>Edit Content
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:page_list' %}">
+                        <i class="fas fa-file-alt"></i>Pages
+                    </a>
+                    <a class="nav-link active" href="{% url 'website_builder:template_list' %}">
+                        <i class="fas fa-paint-brush"></i>Templates
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:asset_list' %}">
+                        <i class="fas fa-images"></i>Media
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:analytics' %}">
+                        <i class="fas fa-chart-line"></i>Analytics
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-lg-10 main-content">
+            <div class="container-fluid py-4">
+                <h2 class="mb-4">Website Templates</h2>
+                
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <strong>Professional Legal Template Active:</strong> Your website uses our optimized legal professional template.
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header text-center bg-primary text-white">
+                                <h5 class="mb-0">Professional Legal</h5>
+                                <small>Currently Active</small>
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="bg-light p-4 rounded mb-3">
+                                    <i class="fas fa-balance-scale fa-3x text-primary"></i>
+                                </div>
+                                <h6>Features:</h6>
+                                <ul class="list-unstyled small">
+                                    <li><i class="fas fa-check text-success me-1"></i>Professional Layout</li>
+                                    <li><i class="fas fa-check text-success me-1"></i>Mobile Responsive</li>
+                                    <li><i class="fas fa-check text-success me-1"></i>SEO Optimized</li>
+                                    <li><i class="fas fa-check text-success me-1"></i>Contact Forms</li>
+                                    <li><i class="fas fa-check text-success me-1"></i>AI Chat Widget</li>
+                                </ul>
+                                <button class="btn btn-success" disabled>
+                                    <i class="fas fa-check me-1"></i>Active
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Customize Your Template</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Your professional legal template can be customized with:</p>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="card bg-light">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-palette fa-2x text-primary mb-2"></i>
+                                                <h6>Colors & Branding</h6>
+                                                <small class="text-muted">Change colors, upload logo</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card bg-light">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-image fa-2x text-primary mb-2"></i>
+                                                <h6>Photos & Images</h6>
+                                                <small class="text-muted">Professional headshots, office photos</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card bg-light">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-edit fa-2x text-primary mb-2"></i>
+                                                <h6>Content & Text</h6>
+                                                <small class="text-muted">Biography, services, contact info</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card bg-light">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-cogs fa-2x text-primary mb-2"></i>
+                                                <h6>Features & Widgets</h6>
+                                                <small class="text-muted">Contact forms, chat widget, analytics</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center mt-4">
+                                    <a href="{% url 'website_builder:edit' %}" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-edit me-2"></i>Customize Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

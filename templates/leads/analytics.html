@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Lead Analytics - {{ request.user.lawyer_profile.full_name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-2 sidebar p-0">
+            <div class="p-3">
+                <div class="text-center mb-4">
+                    <h6 class="mb-1">Lead Analytics</h6>
+                    <small class="text-muted">{{ request.user.lawyer_profile.full_name }}</small>
+                </div>
+                
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{% url 'leads:lead_list' %}">
+                        <i class="fas fa-users"></i> All Leads
+                    </a>
+                    <a class="nav-link" href="{% url 'leads:consultation_list' %}">
+                        <i class="fas fa-calendar"></i> Consultations
+                    </a>
+                    <a class="nav-link active" href="{% url 'leads:analytics' %}">
+                        <i class="fas fa-chart-bar"></i> Analytics
+                    </a>
+                    <hr>
+                    <a class="nav-link" href="{% url 'lawyers:dashboard' %}">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-lg-10 main-content">
+            <div class="container-fluid py-4">
+                <h2 class="mb-4">Lead Analytics & Performance</h2>
+                
+                <!-- Overview Cards - Real Data -->
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-chart-line fa-lg"></i>
+                                </div>
+                                <h4 class="fw-bold text-primary">{{ conversion_rate|default:0 }}%</h4>
+                                <p class="text-muted mb-0">Conversion Rate</p>
+                                <small class="{% if conversion_rate > 30 %}text-success{% elif conversion_rate > 15 %}text-warning{% else %}text-danger{% endif %}">
+                                    {% if conversion_rate > 30 %}Excellent{% elif conversion_rate > 15 %}Good{% else %}Needs improvement{% endif %}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-robot fa-lg"></i>
+                                </div>
+                                <h4 class="fw-bold text-success">{{ chat_conversion|default:0 }}%</h4>
+                                <p class="text-muted mb-0">AI Chat Leads</p>
+                                <small class="text-info">
+                                    {% if total_leads > 0 %}Main lead source{% else %}Waiting for leads{% endif %}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-users fa-lg"></i>
+                                </div>
+                                <h4 class="fw-bold text-warning">{{ total_leads|default:0 }}</h4>
+                                <p class="text-muted mb-0">Total Leads</p>
+                                <small class="text-info">{{ leads_this_month|default:0 }} this month</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-dollar-sign fa-lg"></i>
+                                </div>
+                                <h4 class="fw-bold text-info">${{ revenue_this_month|default:0 }}</h4>
+                                <p class="text-muted mb-0">Revenue This Month</p>
+                                <small class="text-success">{{ completed_consultations|default:0 }} completed</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts and Analytics -->
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        {% if total_leads > 0 %}
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-chart-area me-2"></i>Lead Performance Overview
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="text-center p-3 bg-light rounded">
+                                            <h5 class="text-primary">{{ total_leads }}</h5>
+                                            <small class="text-muted">Total Leads Generated</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="text-center p-3 bg-light rounded">
+                                            <h5 class="text-success">{{ total_consultations }}</h5>
+                                            <small class="text-muted">Consultations Scheduled</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="text-center p-3 bg-light rounded">
+                                            <h5 class="text-warning">{{ completed_consultations }}</h5>
+                                            <small class="text-muted">Consultations Completed</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="text-center p-3 bg-light rounded">
+                                            <h5 class="text-info">{{ leads_this_month }}</h5>
+                                            <small class="text-muted">Leads This Month</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-chart-area me-2"></i>Analytics Dashboard
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-chart-line fa-3x text-muted mb-3"></i>
+                                    <h5>No Data Yet</h5>
+                                    <p class="text-muted">Analytics will be available after you start receiving leads.</p>
+                                    {% if not request.user.lawyer_profile.website_published %}
+                                    <a href="{% url 'lawyers:dashboard' %}" class="btn btn-success">
+                                        <i class="fas fa-rocket me-2"></i>Publish Website
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <!-- Lead Sources -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Lead Sources</h6>
+                            </div>
+                            <div class="card-body">
+                                {% if source_data %}
+                                    {% for source in source_data %}
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-{% if source.source == 'website_chat' %}robot{% elif source.source == 'website' %}globe{% elif source.source == 'phone' %}phone{% else %}share{% endif %} 
+                                               text-{% if source.source == 'website_chat' %}primary{% elif source.source == 'website' %}success{% elif source.source == 'phone' %}warning{% else %}info{% endif %} me-2"></i>
+                                            <span>
+                                                {% if source.source == 'website_chat' %}AI Chatbot
+                                                {% elif source.source == 'website' %}Website Form
+                                                {% elif source.source == 'phone' %}Phone Call
+                                                {% elif source.source == 'referral' %}Referral
+                                                {% else %}{{ source.source|title }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <div class="text-end">
+                                            <strong>{{ source.percentage }}%</strong>
+                                            <br><small class="text-muted">{{ source.count }} leads</small>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="text-center py-3">
+                                        <i class="fas fa-chart-pie fa-2x text-muted mb-2"></i>
+                                        <p class="text-muted small">No lead sources yet</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Legal Categories -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6 class="mb-0">Legal Categories</h6>
+                            </div>
+                            <div class="card-body">
+                                {% if category_data %}
+                                    {% for category in category_data %}
+                                    <div class="mb-2">
+                                        <div class="d-flex justify-content-between">
+                                            <span>{{ category.category|default:"General" }}</span>
+                                            <strong>{{ category.percentage }}%</strong>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar bg-{% cycle 'primary' 'success' 'warning' 'info' 'danger' %}" 
+                                                 style="width: {{ category.percentage }}%"></div>
+                                        </div>
+                                        <small class="text-muted">{{ category.count }} cases</small>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="text-center py-3">
+                                        <i class="fas fa-gavel fa-2x text-muted mb-2"></i>
+                                        <p class="text-muted small">No legal categories yet</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6 class="mb-0">Quick Actions</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-grid gap-2">
+                                    <a href="{% url 'leads:lead_list' %}" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-users me-1"></i>View All Leads
+                                    </a>
+                                    <a href="{% url 'leads:consultation_list' %}" class="btn btn-outline-success btn-sm">
+                                        <i class="fas fa-calendar me-1"></i>Manage Consultations
+                                    </a>
+                                    <a href="{% url 'chatbot:dashboard' %}" class="btn btn-outline-warning btn-sm">
+                                        <i class="fas fa-robot me-1"></i>AI Chatbot Stats
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

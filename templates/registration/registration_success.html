@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Registration Successful - Lawyer Website Builder{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center py-5">
+        <div class="col-lg-6">
+            <div class="card shadow-lg">
+                <div class="card-header text-center bg-success text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-check-circle me-2"></i>
+                        Registration Successful!
+                    </h3>
+                </div>
+                <div class="card-body text-center p-5">
+                    <div class="mb-4">
+                        <i class="fas fa-rocket fa-4x text-success mb-3"></i>
+                        <h4>Welcome to LawyerBuilder!</h4>
+                        <p class="lead text-muted">Your account has been created successfully. You can now start building your professional legal website.</p>
+                    </div>
+                    
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="card border-success">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-globe text-success fa-2x mb-2"></i>
+                                    <h6>Create Website</h6>
+                                    <small class="text-muted">Build your professional site</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-success">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-robot text-success fa-2x mb-2"></i>
+                                    <h6>Setup Chatbot</h6>
+                                    <small class="text-muted">Configure AI assistant</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card border-success">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-users text-success fa-2x mb-2"></i>
+                                    <h6>Manage Leads</h6>
+                                    <small class="text-muted">Track potential clients</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'lawyers:dashboard' %}" class="btn btn-success btn-lg">
+                            <i class="fas fa-tachometer-alt me-2"></i>Go to Dashboard
+                        </a>
+                        <a href="{% url 'lawyers:profile_edit' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-user-edit me-2"></i>Complete Your Profile
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer bg-light text-center">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Your 14-day free trial has started automatically
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

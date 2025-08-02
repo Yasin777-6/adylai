@@ -1,0 +1,481 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}Панель управления - {{ request.user.lawyer_profile.full_name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Боковая панель -->
+        <div class="col-lg-2 sidebar p-0">
+            <div class="p-3">
+                <div class="text-center mb-4">
+                    <h6 class="mb-1">Панель управления</h6>
+                    <small class="text-muted">{{ request.user.lawyer_profile.full_name }}</small>
+                </div>
+                
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="{% url 'lawyers:dashboard' %}">
+                        <i class="fas fa-tachometer-alt"></i> Обзор
+                    </a>
+                    <a class="nav-link" href="{% url 'website_builder:dashboard' %}">
+                        <i class="fas fa-globe"></i> Веб-сайт
+                    </a>
+                    <a class="nav-link" href="{% url 'leads:lead_list' %}">
+                        <i class="fas fa-users"></i> Клиенты
+                    </a>
+                    <a class="nav-link" href="{% url 'chatbot:dashboard' %}">
+                        <i class="fas fa-robot"></i> ИИ Консультант
+                    </a>
+                    <a class="nav-link" href="{% url 'lawyers:subscription' %}">
+                        <i class="fas fa-credit-card"></i> Подписка
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Основной контент -->
+        <div class="col-lg-10 main-content">
+            <div class="container-fluid py-4">
+                <!-- Заголовок приветствия -->
+                <div class="row align-items-center mb-4">
+                    <div class="col">
+                        <h2 class="mb-1">Добро пожаловать, {{ request.user.lawyer_profile.full_name }}!</h2>
+                        <p class="text-muted">Вот что происходит с вашей юридической практикой сегодня.</p>
+                    </div>
+                    <div class="col-auto">
+                        {% if lawyer.website_published %}
+                            <a href="http://127.0.0.1:8000/{{ lawyer.domain_slug }}/" class="btn btn-success me-2" target="_blank">
+                                <i class="fas fa-eye me-2"></i>Посмотреть сайт
+                            </a>
+                            <button class="btn btn-outline-secondary" onclick="copyWebsiteLink()">
+                                <i class="fas fa-copy me-2"></i>Копировать ссылку
+                            </button>
+                        {% else %}
+                            <button class="btn btn-primary" onclick="publishWebsite()">
+                                <i class="fas fa-rocket me-2"></i>Опубликовать сайт
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Статус веб-сайта -->
+                {% if not lawyer.website_published %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Ваш веб-сайт ещё не опубликован!</strong> Опубликуйте ваш сайт, чтобы активировать ИИ консультанта и начать получать клиентов.
+                    <button class="btn btn-sm btn-outline-dark ms-3" onclick="publishWebsite()">
+                        <i class="fas fa-rocket me-1"></i>Опубликовать сейчас
+                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% else %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <strong>Ваш веб-сайт работает!</strong> ИИ консультант активен и привлекает клиентов на 
+                    <a href="http://127.0.0.1:8000/{{ lawyer.domain_slug }}/" target="_blank" class="alert-link">
+                        http://127.0.0.1:8000/{{ lawyer.domain_slug }}/
+                    </a>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endif %}
+                
+                <!-- Статистика - Реальные данные -->
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-users fa-lg"></i>
+                                </div>
+                                <h4 class="fw-bold text-primary">{{ total_leads|default:0 }}</h4>
+                                <p class="text-muted mb-0">Всего клиентов</p>
+                                {% if total_leads > 0 %}
+                                    <small class="text-success">Активно</small>
+                                {% else %}
+                                    <small class="text-muted">{% if not lawyer.website_published %}Опубликуйте для начала{% else %}Скоро появятся{% endif %}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-calendar fa-lg"></i>
+                                </div>
+                                <h4 class="fw-bold text-success">{{ total_consultations|default:0 }}</h4>
+                                <p class="text-muted mb-0">Консультации</p>
+                                {% if total_consultations > 0 %}
+                                    <small class="text-info">{{ scheduled_today|default:0 }} сегодня</small>
+                                {% else %}
+                                    <small class="text-muted">Готово к записи</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-robot fa-lg"></i>
+                                </div>
+                                <h4 class="fw-bold text-warning">{% if lawyer.website_published %}Активен{% else %}Неактивен{% endif %}</h4>
+                                <p class="text-muted mb-0">ИИ Консультант</p>
+                                <small class="{% if lawyer.website_published %}text-success{% else %}text-danger{% endif %}">
+                                    {% if lawyer.website_published %}Привлекает клиентов{% else %}Ожидает сайт{% endif %}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-eye fa-lg"></i>
+                                </div>
+                                <h4 class="fw-bold text-info">{% if lawyer.website_published %}Работает{% else %}Черновик{% endif %}</h4>
+                                <p class="text-muted mb-0">Статус сайта</p>
+                                {% if lawyer.website_published %}
+                                    <small class="text-success">Онлайн и активен</small>
+                                {% else %}
+                                    <small class="text-warning">Готов к публикации</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Основной контент панели -->
+                <div class="row g-4">
+                    <!-- Быстрые действия -->
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-bolt me-2"></i>Быстрые действия
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <a href="{% url 'website_builder:edit' %}" class="btn btn-outline-primary w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
+                                            <i class="fas fa-edit fa-2x mb-2"></i>
+                                            <span>Редактировать сайт</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="{% url 'leads:lead_list' %}" class="btn btn-outline-success w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
+                                            <i class="fas fa-users fa-2x mb-2"></i>
+                                            <span>Просмотр клиентов</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="{% url 'chatbot:dashboard' %}" class="btn btn-outline-warning w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
+                                            <i class="fas fa-robot fa-2x mb-2"></i>
+                                            <span>Настройки ИИ</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Реальные данные расписания -->
+                        <div class="card mt-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-calendar-day me-2"></i>Расписание на сегодня
+                                </h5>
+                                <span class="badge bg-primary">{{ "now"|date:"d M Y" }}</span>
+                            </div>
+                            <div class="card-body">
+                                {% if today_consultations %}
+                                    <div class="list-group list-group-flush">
+                                        {% for consultation in today_consultations %}
+                                        <div class="list-group-item d-flex justify-content-between align-items-center border-0">
+                                            <div>
+                                                <strong>{{ consultation.scheduled_time|time:"H:i" }}</strong> - {{ consultation.consultation_type|title }}
+                                                <br><small class="text-muted">{{ consultation.lead.legal_category }} • {{ consultation.lead.name }}</small>
+                                            </div>
+                                            <span class="badge bg-{% if consultation.status == 'confirmed' %}success{% elif consultation.status == 'scheduled' %}warning{% else %}secondary{% endif %}">
+                                                {% if consultation.status == 'confirmed' %}Подтверждено{% elif consultation.status == 'scheduled' %}Запланировано{% else %}{{ consultation.get_status_display }}{% endif %}
+                                            </span>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="text-center py-4">
+                                        <i class="fas fa-calendar-day fa-3x text-muted mb-3"></i>
+                                        <h5>Нет консультаций на сегодня</h5>
+                                        <p class="text-muted">Ваше расписание свободно. Идеальное время для других задач!</p>
+                                        <a href="{% url 'leads:consultation_list' %}" class="btn btn-outline-primary">
+                                            <i class="fas fa-calendar me-2"></i>Посмотреть полное расписание
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Боковая информация -->
+                    <div class="col-lg-4">
+                        <!-- Сводка профиля -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="fas fa-user me-2"></i>Сводка профиля
+                                </h6>
+                            </div>
+                            <div class="card-body text-center">
+                                {% if lawyer.photo %}
+                                    <img src="{{ lawyer.photo.url }}" alt="{{ lawyer.full_name }}" 
+                                         class="rounded-circle mb-3" style="width: 80px; height: 80px; object-fit: cover;">
+                                {% else %}
+                                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                                         style="width: 80px; height: 80px; font-size: 2rem;">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                {% endif %}
+                                <h6 class="fw-bold">{{ lawyer.full_name }}</h6>
+                                <p class="text-muted small">
+                                    {% if lawyer.years_experience > 0 %}
+                                        {{ lawyer.years_experience }} лет опыта
+                                    {% else %}
+                                        Начинающий юрист
+                                    {% endif %}
+                                </p>
+                                <a href="{% url 'lawyers:profile_edit' %}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-edit me-1"></i>Редактировать профиль
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Статус веб-сайта -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="fas fa-globe me-2"></i>Статус веб-сайта
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                {% if lawyer.website_published %}
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                            <i class="fas fa-check"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="text-success">Опубликован</strong>
+                                            <br><small class="text-muted">ИИ консультант активен</small>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 p-2 bg-light rounded">
+                                        <small class="text-muted">URL вашего сайта:</small>
+                                        <div class="d-flex align-items-center">
+                                            <code class="small" id="websiteUrl">http://127.0.0.1:8000/{{ lawyer.domain_slug }}/</code>
+                                            <button class="btn btn-sm btn-outline-secondary ms-2" onclick="copyWebsiteLink()">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <a href="http://127.0.0.1:8000/{{ lawyer.domain_slug }}/" class="btn btn-success btn-sm" target="_blank">
+                                            <i class="fas fa-eye me-1"></i>Посмотреть сайт
+                                        </a>
+                                        <button class="btn btn-outline-secondary btn-sm" onclick="unpublishWebsite()">
+                                            <i class="fas fa-pause me-1"></i>Снять с публикации
+                                        </button>
+                                    </div>
+                                {% else %}
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-warning text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                            <i class="fas fa-pause"></i>
+                                        </div>
+                                        <div>
+                                            <strong class="text-warning">Не опубликован</strong>
+                                            <br><small class="text-muted">ИИ консультант неактивен</small>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 p-2 bg-light rounded">
+                                        <small class="text-muted">Ваш сайт будет доступен по адресу:</small>
+                                        <div><code class="small">http://127.0.0.1:8000/{{ lawyer.domain_slug }}/</code></div>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button class="btn btn-primary btn-sm" onclick="publishWebsite()">
+                                            <i class="fas fa-rocket me-1"></i>Опубликовать сайт
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Последняя активность - Реальные данные -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="fas fa-clock me-2"></i>Последняя активность
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                {% if recent_leads %}
+                                    <div class="timeline">
+                                        {% for lead in recent_leads %}
+                                        <div class="timeline-item">
+                                            <small class="text-muted">{{ lead.created_at|timesince }} назад</small>
+                                            <p class="mb-1 small">Новый клиент: {{ lead.name }} ({{ lead.legal_category }})</p>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="text-center py-3">
+                                        <i class="fas fa-history fa-2x text-muted mb-2"></i>
+                                        <p class="text-muted small">Пока нет активности</p>
+                                        {% if not lawyer.website_published %}
+                                        <p class="text-muted small">Опубликуйте сайт для отслеживания активности</p>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно успешной публикации сайта -->
+<div class="modal fade" id="publishSuccessModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-check-circle me-2"></i>Сайт успешно опубликован!
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="mb-4">
+                    <i class="fas fa-rocket fa-3x text-success mb-3"></i>
+                    <h4>Ваш сайт теперь работает!</h4>
+                    <p class="text-muted">Ваш ИИ консультант активен и готов привлекать клиентов.</p>
+                </div>
+                
+                <div class="alert alert-info">
+                    <strong>URL вашего сайта:</strong><br>
+                    <code id="publishedUrl">http://127.0.0.1:8000/{{ lawyer.domain_slug }}/</code>
+                    <button class="btn btn-sm btn-outline-info ms-2" onclick="copyFromModal()">
+                        <i class="fas fa-copy"></i> Копировать
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <a href="http://127.0.0.1:8000/{{ lawyer.domain_slug }}/" class="btn btn-success" target="_blank">
+                    <i class="fas fa-eye me-2"></i>Посмотреть сайт
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% csrf_token %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function publishWebsite() {
+    if (confirm('Опубликовать ваш сайт? Это активирует ИИ консультанта и сделает сайт доступным.')) {
+        fetch('{% url "lawyers:publish_website" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: 'action=publish'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Показать модальное окно успеха с ссылкой на сайт
+                const modal = new bootstrap.Modal(document.getElementById('publishSuccessModal'));
+                document.getElementById('publishedUrl').textContent = data.website_url || 'http://127.0.0.1:8000/{{ lawyer.domain_slug }}/';
+                modal.show();
+                
+                // Перезагрузить страницу после закрытия модального окна
+                document.getElementById('publishSuccessModal').addEventListener('hidden.bs.modal', function () {
+                    location.reload();
+                });
+            } else {
+                alert('Ошибка: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            alert('Ошибка публикации сайта');
+        });
+    }
+}
+
+function unpublishWebsite() {
+    if (confirm('Снять сайт с публикации? Это деактивирует ИИ консультанта.')) {
+        fetch('{% url "lawyers:publish_website" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: 'action=unpublish'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Ошибка: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            alert('Ошибка снятия сайта с публикации');
+        });
+    }
+}
+
+function copyWebsiteLink() {
+    const url = 'http://127.0.0.1:8000/{{ lawyer.domain_slug }}/';
+    navigator.clipboard.writeText(url).then(function() {
+        // Показать обратную связь об успехе
+        const button = event.target.closest('button');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check me-2"></i>Скопировано!';
+        button.classList.remove('btn-outline-secondary');
+        button.classList.add('btn-success');
+        
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.remove('btn-success');
+            button.classList.add('btn-outline-secondary');
+        }, 2000);
+    });
+}
+
+function copyFromModal() {
+    const url = document.getElementById('publishedUrl').textContent;
+    navigator.clipboard.writeText(url).then(function() {
+        const button = event.target.closest('button');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check"></i> Скопировано!';
+        button.classList.add('btn-success');
+        
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.remove('btn-success');
+            button.classList.add('btn-outline-info');
+        }, 2000);
+    });
+}
+</script>
+{% endblock %} 
