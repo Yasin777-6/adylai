@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}AdylAI - AI-Powered Legal Platform{% endblock %}</title>
+    <title>{% block title %}AdylAI - Юридическая платформа с ИИ{% endblock %}</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -243,22 +243,22 @@
                     {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'lawyers:dashboard' %}">
-                                <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+                                <i class="fas fa-tachometer-alt me-1"></i>Панель управления
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'website_builder:dashboard' %}">
-                                <i class="fas fa-globe me-1"></i>Website
+                                <i class="fas fa-globe me-1"></i>Веб-сайт
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'leads:lead_list' %}">
-                                <i class="fas fa-users me-1"></i>Leads
+                                <i class="fas fa-users me-1"></i>Клиенты
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'chatbot:dashboard' %}">
-                                <i class="fas fa-comments me-1"></i>Chat
+                                <i class="fas fa-comments me-1"></i>Чат
                             </a>
                         </li>
                     {% endif %}
@@ -273,26 +273,26 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{% url 'lawyers:profile' %}">
-                                    <i class="fas fa-user me-2"></i>Profile
+                                    <i class="fas fa-user me-2"></i>Профиль
                                 </a></li>
                                 <li><a class="dropdown-item" href="{% url 'lawyers:subscription' %}">
-                                    <i class="fas fa-credit-card me-2"></i>Subscription
+                                    <i class="fas fa-credit-card me-2"></i>Подписка
                                 </a></li>
                                 <li><a class="dropdown-item" href="{% url 'lawyers:settings' %}">
-                                    <i class="fas fa-cog me-2"></i>Settings
+                                    <i class="fas fa-cog me-2"></i>Настройки
                                 </a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{% url 'logout' %}">
-                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                    <i class="fas fa-sign-out-alt me-2"></i>Выйти
                                 </a></li>
                             </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            <a class="nav-link" href="{% url 'login' %}">Войти</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-primary ms-2" href="{% url 'lawyers:register' %}">Get Started</a>
+                            <a class="btn btn-primary ms-2" href="{% url 'lawyers:register' %}">Начать</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -324,34 +324,34 @@
             <div class="row">
                 <div class="col-md-4">
                     <h5>AdylAI</h5>
-                    <p class="text-muted">AI-powered legal platform for lawyers in Kyrgyzstan. Transform your practice with intelligent automation and client management.</p>
+                    <p class="text-muted">Юридическая платформа с ИИ для юристов Кыргызстана. Трансформируйте свою практику с помощью интеллектуальной автоматизации и управления клиентами.</p>
                 </div>
                 <div class="col-md-2">
-                    <h6>Platform</h6>
+                    <h6>Платформа</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Templates</a></li>
+                        <li><a href="#">Возможности</a></li>
+                        <li><a href="#">Цены</a></li>
+                        <li><a href="#">Шаблоны</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
-                    <h6>Support</h6>
+                    <h6>Поддержка</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Центр помощи</a></li>
+                        <li><a href="#">Связаться с нами</a></li>
+                        <li><a href="#">Документация</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
-                    <h6>Legal</h6>
+                    <h6>Правовая информация</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Условия использования</a></li>
+                        <li><a href="#">Политика cookies</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
-                    <h6>Connect</h6>
+                    <h6>Связь</h6>
                     <div class="d-flex">
                         <a href="#" class="me-3"><i class="fab fa-facebook fa-lg"></i></a>
                         <a href="#" class="me-3"><i class="fab fa-twitter fa-lg"></i></a>
@@ -362,10 +362,10 @@
             <hr class="my-4">
             <div class="row">
                 <div class="col-md-6">
-                    <small>&copy; 2024 AdylAI. All rights reserved.</small>
+                    <small>&copy; 2024 AdylAI. Все права защищены.</small>
                 </div>
                 <div class="col-md-6 text-end">
-                    <small>Made with ❤️ for lawyers in Kyrgyzstan</small>
+                    <small>Создано с ❤️ для юристов Кыргызстана</small>
                 </div>
             </div>
         </div>

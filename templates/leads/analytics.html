@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}Lead Analytics - {{ request.user.lawyer_profile.full_name }}{% endblock %}
+{% block title %}Аналитика лидов - {{ request.user.lawyer_profile.full_name }}{% endblock %}
 
 {% block content %}
 <div class="container-fluid">
@@ -10,23 +10,23 @@
         <div class="col-lg-2 sidebar p-0">
             <div class="p-3">
                 <div class="text-center mb-4">
-                    <h6 class="mb-1">Lead Analytics</h6>
+                    <h6 class="mb-1">Аналитика лидов</h6>
                     <small class="text-muted">{{ request.user.lawyer_profile.full_name }}</small>
                 </div>
                 
                 <nav class="nav flex-column">
                     <a class="nav-link" href="{% url 'leads:lead_list' %}">
-                        <i class="fas fa-users"></i> All Leads
+                        <i class="fas fa-users"></i> Все лиды
                     </a>
                     <a class="nav-link" href="{% url 'leads:consultation_list' %}">
-                        <i class="fas fa-calendar"></i> Consultations
+                        <i class="fas fa-calendar"></i> Консультации
                     </a>
                     <a class="nav-link active" href="{% url 'leads:analytics' %}">
-                        <i class="fas fa-chart-bar"></i> Analytics
+                        <i class="fas fa-chart-bar"></i> Аналитика
                     </a>
                     <hr>
                     <a class="nav-link" href="{% url 'lawyers:dashboard' %}">
-                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        <i class="fas fa-arrow-left"></i> Назад к панели управления
                     </a>
                 </nav>
             </div>
@@ -35,7 +35,7 @@
         <!-- Main Content -->
         <div class="col-lg-10 main-content">
             <div class="container-fluid py-4">
-                <h2 class="mb-4">Lead Analytics & Performance</h2>
+                <h2 class="mb-4">Аналитика и производительность лидов</h2>
                 
                 <!-- Overview Cards - Real Data -->
                 <div class="row g-4 mb-5">
@@ -46,9 +46,9 @@
                                     <i class="fas fa-chart-line fa-lg"></i>
                                 </div>
                                 <h4 class="fw-bold text-primary">{{ conversion_rate|default:0 }}%</h4>
-                                <p class="text-muted mb-0">Conversion Rate</p>
+                                <p class="text-muted mb-0">Коэффициент конверсии</p>
                                 <small class="{% if conversion_rate > 30 %}text-success{% elif conversion_rate > 15 %}text-warning{% else %}text-danger{% endif %}">
-                                    {% if conversion_rate > 30 %}Excellent{% elif conversion_rate > 15 %}Good{% else %}Needs improvement{% endif %}
+                                    {% if conversion_rate > 30 %}Отлично{% elif conversion_rate > 15 %}Хорошо{% else %}Требует улучшения{% endif %}
                                 </small>
                             </div>
                         </div>
@@ -61,9 +61,9 @@
                                     <i class="fas fa-robot fa-lg"></i>
                                 </div>
                                 <h4 class="fw-bold text-success">{{ chat_conversion|default:0 }}%</h4>
-                                <p class="text-muted mb-0">AI Chat Leads</p>
+                                <p class="text-muted mb-0">Лиды из ИИ чата</p>
                                 <small class="text-info">
-                                    {% if total_leads > 0 %}Main lead source{% else %}Waiting for leads{% endif %}
+                                    {% if total_leads > 0 %}Основной источник лидов{% else %}Ожидание лидов{% endif %}
                                 </small>
                             </div>
                         </div>
@@ -76,8 +76,8 @@
                                     <i class="fas fa-users fa-lg"></i>
                                 </div>
                                 <h4 class="fw-bold text-warning">{{ total_leads|default:0 }}</h4>
-                                <p class="text-muted mb-0">Total Leads</p>
-                                <small class="text-info">{{ leads_this_month|default:0 }} this month</small>
+                                <p class="text-muted mb-0">Всего лидов</p>
+                                <small class="text-info">{{ leads_this_month|default:0 }} в этом месяце</small>
                             </div>
                         </div>
                     </div>
@@ -89,8 +89,8 @@
                                     <i class="fas fa-dollar-sign fa-lg"></i>
                                 </div>
                                 <h4 class="fw-bold text-info">${{ revenue_this_month|default:0 }}</h4>
-                                <p class="text-muted mb-0">Revenue This Month</p>
-                                <small class="text-success">{{ completed_consultations|default:0 }} completed</small>
+                                <p class="text-muted mb-0">Доход в этом месяце</p>
+                                <small class="text-success">{{ completed_consultations|default:0 }} завершено</small>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="mb-0">
-                                    <i class="fas fa-chart-area me-2"></i>Lead Performance Overview
+                                    <i class="fas fa-chart-area me-2"></i>Обзор производительности лидов
                                 </h5>
                             </div>
                             <div class="card-body">
@@ -111,25 +111,25 @@
                                     <div class="col-md-6">
                                         <div class="text-center p-3 bg-light rounded">
                                             <h5 class="text-primary">{{ total_leads }}</h5>
-                                            <small class="text-muted">Total Leads Generated</small>
+                                            <small class="text-muted">Всего лидов сгенерировано</small>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="text-center p-3 bg-light rounded">
                                             <h5 class="text-success">{{ total_consultations }}</h5>
-                                            <small class="text-muted">Consultations Scheduled</small>
+                                            <small class="text-muted">Консультаций запланировано</small>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="text-center p-3 bg-light rounded">
                                             <h5 class="text-warning">{{ completed_consultations }}</h5>
-                                            <small class="text-muted">Consultations Completed</small>
+                                            <small class="text-muted">Консультаций завершено</small>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="text-center p-3 bg-light rounded">
                                             <h5 class="text-info">{{ leads_this_month }}</h5>
-                                            <small class="text-muted">Leads This Month</small>
+                                            <small class="text-muted">Лидов в этом месяце</small>
                                         </div>
                                     </div>
                                 </div>
@@ -139,17 +139,17 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="mb-0">
-                                    <i class="fas fa-chart-area me-2"></i>Analytics Dashboard
+                                    <i class="fas fa-chart-area me-2"></i>Панель аналитики
                                 </h5>
                             </div>
                             <div class="card-body">
                                 <div class="text-center py-5">
                                     <i class="fas fa-chart-line fa-3x text-muted mb-3"></i>
-                                    <h5>No Data Yet</h5>
-                                    <p class="text-muted">Analytics will be available after you start receiving leads.</p>
+                                    <h5>Пока нет данных</h5>
+                                    <p class="text-muted">Аналитика будет доступна после того, как вы начнете получать лиды.</p>
                                     {% if not request.user.lawyer_profile.website_published %}
                                     <a href="{% url 'lawyers:dashboard' %}" class="btn btn-success">
-                                        <i class="fas fa-rocket me-2"></i>Publish Website
+                                        <i class="fas fa-rocket me-2"></i>Опубликовать сайт
                                     </a>
                                     {% endif %}
                                 </div>
@@ -162,7 +162,7 @@
                         <!-- Lead Sources -->
                         <div class="card">
                             <div class="card-header">
-                                <h6 class="mb-0">Lead Sources</h6>
+                                <h6 class="mb-0">Источники лидов</h6>
                             </div>
                             <div class="card-body">
                                 {% if source_data %}
@@ -172,24 +172,24 @@
                                             <i class="fas fa-{% if source.source == 'website_chat' %}robot{% elif source.source == 'website' %}globe{% elif source.source == 'phone' %}phone{% else %}share{% endif %} 
                                                text-{% if source.source == 'website_chat' %}primary{% elif source.source == 'website' %}success{% elif source.source == 'phone' %}warning{% else %}info{% endif %} me-2"></i>
                                             <span>
-                                                {% if source.source == 'website_chat' %}AI Chatbot
-                                                {% elif source.source == 'website' %}Website Form
-                                                {% elif source.source == 'phone' %}Phone Call
-                                                {% elif source.source == 'referral' %}Referral
+                                                {% if source.source == 'website_chat' %}ИИ Чатбот
+                                                {% elif source.source == 'website' %}Форма сайта
+                                                {% elif source.source == 'phone' %}Телефонный звонок
+                                                {% elif source.source == 'referral' %}Рекомендация
                                                 {% else %}{{ source.source|title }}
                                                 {% endif %}
                                             </span>
                                         </div>
                                         <div class="text-end">
                                             <strong>{{ source.percentage }}%</strong>
-                                            <br><small class="text-muted">{{ source.count }} leads</small>
+                                            <br><small class="text-muted">{{ source.count }} лидов</small>
                                         </div>
                                     </div>
                                     {% endfor %}
                                 {% else %}
                                     <div class="text-center py-3">
                                         <i class="fas fa-chart-pie fa-2x text-muted mb-2"></i>
-                                        <p class="text-muted small">No lead sources yet</p>
+                                        <p class="text-muted small">Пока нет источников лидов</p>
                                     </div>
                                 {% endif %}
                             </div>
@@ -198,27 +198,27 @@
                         <!-- Legal Categories -->
                         <div class="card mt-4">
                             <div class="card-header">
-                                <h6 class="mb-0">Legal Categories</h6>
+                                <h6 class="mb-0">Юридические категории</h6>
                             </div>
                             <div class="card-body">
                                 {% if category_data %}
                                     {% for category in category_data %}
                                     <div class="mb-2">
                                         <div class="d-flex justify-content-between">
-                                            <span>{{ category.category|default:"General" }}</span>
+                                            <span>{{ category.category|default:"Общие" }}</span>
                                             <strong>{{ category.percentage }}%</strong>
                                         </div>
                                         <div class="progress" style="height: 8px;">
                                             <div class="progress-bar bg-{% cycle 'primary' 'success' 'warning' 'info' 'danger' %}" 
                                                  style="width: {{ category.percentage }}%"></div>
                                         </div>
-                                        <small class="text-muted">{{ category.count }} cases</small>
+                                        <small class="text-muted">{{ category.count }} дел</small>
                                     </div>
                                     {% endfor %}
                                 {% else %}
                                     <div class="text-center py-3">
                                         <i class="fas fa-gavel fa-2x text-muted mb-2"></i>
-                                        <p class="text-muted small">No legal categories yet</p>
+                                        <p class="text-muted small">Пока нет юридических категорий</p>
                                     </div>
                                 {% endif %}
                             </div>
@@ -227,18 +227,18 @@
                         <!-- Quick Actions -->
                         <div class="card mt-4">
                             <div class="card-header">
-                                <h6 class="mb-0">Quick Actions</h6>
+                                <h6 class="mb-0">Быстрые действия</h6>
                             </div>
                             <div class="card-body">
                                 <div class="d-grid gap-2">
                                     <a href="{% url 'leads:lead_list' %}" class="btn btn-outline-primary btn-sm">
-                                        <i class="fas fa-users me-1"></i>View All Leads
+                                        <i class="fas fa-users me-1"></i>Посмотреть все лиды
                                     </a>
                                     <a href="{% url 'leads:consultation_list' %}" class="btn btn-outline-success btn-sm">
-                                        <i class="fas fa-calendar me-1"></i>Manage Consultations
+                                        <i class="fas fa-calendar me-1"></i>Управление консультациями
                                     </a>
                                     <a href="{% url 'chatbot:dashboard' %}" class="btn btn-outline-warning btn-sm">
-                                        <i class="fas fa-robot me-1"></i>AI Chatbot Stats
+                                        <i class="fas fa-robot me-1"></i>Статистика ИИ чатбота
                                     </a>
                                 </div>
                             </div>

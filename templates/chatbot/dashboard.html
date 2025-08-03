@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}AI Chatbot Dashboard - {{ request.user.lawyer_profile.full_name }}{% endblock %}
+{% block title %}Панель управления ИИ Чатбота - {{ request.user.lawyer_profile.full_name }}{% endblock %}
 
 {% block content %}
 <div class="container-fluid">
@@ -10,23 +10,23 @@
         <div class="col-lg-2 sidebar p-0">
             <div class="p-3">
                 <div class="text-center mb-4">
-                    <h6 class="mb-1">AI Chatbot</h6>
+                    <h6 class="mb-1">ИИ Чатбот</h6>
                     <small class="text-muted">{{ request.user.lawyer_profile.full_name }}</small>
                 </div>
                 
                 <nav class="nav flex-column">
                     <a class="nav-link active" href="{% url 'chatbot:dashboard' %}">
-                        <i class="fas fa-robot"></i> Dashboard
+                        <i class="fas fa-robot"></i> Панель управления
                     </a>
                     <a class="nav-link" href="{% url 'chatbot:configuration' %}">
-                        <i class="fas fa-cog"></i> Settings
+                        <i class="fas fa-cog"></i> Настройки
                     </a>
                     <a class="nav-link" href="{% url 'chatbot:analytics' %}">
-                        <i class="fas fa-chart-line"></i> Analytics
+                        <i class="fas fa-chart-line"></i> Аналитика
                     </a>
                     <hr>
                     <a class="nav-link" href="{% url 'lawyers:dashboard' %}">
-                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        <i class="fas fa-arrow-left"></i> Назад к панели управления
                     </a>
                 </nav>
             </div>
@@ -38,20 +38,20 @@
                 <!-- Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <h2 class="mb-0">AI Chatbot Dashboard</h2>
-                        <p class="text-muted">Monitor and manage your DeepSeek AI assistant</p>
+                        <h2 class="mb-0">Панель управления ИИ Чатбота</h2>
+                        <p class="text-muted">Мониторинг и управление вашим ИИ помощником DeepSeek</p>
                     </div>
                     <div class="btn-group">
                         <button class="btn btn-outline-success" id="testChatbot">
-                            <i class="fas fa-play me-2"></i>Test Chatbot
+                            <i class="fas fa-play me-2"></i>Тестировать чатбот
                         </button>
                         {% if request.user.lawyer_profile.website_published %}
                         <a href="/{{ request.user.lawyer_profile.domain_slug }}/" class="btn btn-primary" target="_blank">
-                            <i class="fas fa-eye me-2"></i>View on Website
+                            <i class="fas fa-eye me-2"></i>Посмотреть на сайте
                         </a>
                         {% else %}
                         <a href="{% url 'lawyers:dashboard' %}" class="btn btn-warning">
-                            <i class="fas fa-rocket me-2"></i>Publish Website
+                            <i class="fas fa-rocket me-2"></i>Опубликовать сайт
                         </a>
                         {% endif %}
                     </div>
@@ -68,11 +68,11 @@
                                         <i class="fas fa-check fa-lg"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-1 text-success">AI Chatbot is Active</h5>
-                                        <p class="mb-0 text-muted">Your DeepSeek AI assistant is running and ready to help visitors on your website</p>
+                                        <h5 class="mb-1 text-success">ИИ Чатбот активен</h5>
+                                        <p class="mb-0 text-muted">Ваш ИИ помощник DeepSeek работает и готов помочь посетителям на вашем сайте</p>
                                     </div>
                                     <div class="ms-auto">
-                                        <span class="badge bg-success fs-6">Online</span>
+                                        <span class="badge bg-success fs-6">Онлайн</span>
                                     </div>
                                 </div>
                             </div>
@@ -85,12 +85,12 @@
                                         <i class="fas fa-pause fa-lg"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-1 text-warning">AI Chatbot is Inactive</h5>
-                                        <p class="mb-0 text-muted">Publish your website to activate the AI chatbot and start capturing leads</p>
+                                        <h5 class="mb-1 text-warning">ИИ Чатбот неактивен</h5>
+                                        <p class="mb-0 text-muted">Опубликуйте ваш сайт, чтобы активировать ИИ чатбот и начать привлекать лидов</p>
                                     </div>
                                     <div class="ms-auto">
                                         <a href="{% url 'lawyers:dashboard' %}" class="btn btn-warning">
-                                            <i class="fas fa-rocket me-2"></i>Publish Website
+                                            <i class="fas fa-rocket me-2"></i>Опубликовать сайт
                                         </a>
                                     </div>
                                 </div>
@@ -109,8 +109,8 @@
                                     <i class="fas fa-comments fa-lg"></i>
                                 </div>
                                 <h4 class="fw-bold text-primary">{{ total_conversations|default:0 }}</h4>
-                                <p class="text-muted mb-0">Total Conversations</p>
-                                <small class="text-success">+{{ today_sessions|default:0 }} today</small>
+                                <p class="text-muted mb-0">Всего разговоров</p>
+                                <small class="text-success">+{{ today_sessions|default:0 }} сегодня</small>
                             </div>
                         </div>
                     </div>
@@ -122,8 +122,8 @@
                                     <i class="fas fa-user-plus fa-lg"></i>
                                 </div>
                                 <h4 class="fw-bold text-success">{{ leads_generated|default:0 }}</h4>
-                                <p class="text-muted mb-0">Leads Generated</p>
-                                <small class="text-info">{{ conversion_rate|default:0 }}% conversion</small>
+                                <p class="text-muted mb-0">Лидов сгенерировано</p>
+                                <small class="text-info">{{ conversion_rate|default:0 }}% конверсия</small>
                             </div>
                         </div>
                     </div>
@@ -135,9 +135,9 @@
                                     <i class="fas fa-clock fa-lg"></i>
                                 </div>
                                 <h4 class="fw-bold text-warning">{{ avg_response_time|default:0 }}s</h4>
-                                <p class="text-muted mb-0">Avg Response Time</p>
+                                <p class="text-muted mb-0">Среднее время ответа</p>
                                 <small class="{% if avg_response_time <= 2 %}text-success{% elif avg_response_time <= 5 %}text-warning{% else %}text-danger{% endif %}">
-                                    {% if avg_response_time <= 2 %}Excellent{% elif avg_response_time <= 5 %}Good{% else %}Needs improvement{% endif %}
+                                    {% if avg_response_time <= 2 %}Отлично{% elif avg_response_time <= 5 %}Хорошо{% else %}Требует улучшения{% endif %}
                                 </small>
                             </div>
                         </div>
@@ -150,8 +150,8 @@
                                     <i class="fas fa-star fa-lg"></i>
                                 </div>
                                 <h4 class="fw-bold text-info">{{ avg_rating|default:0 }}</h4>
-                                <p class="text-muted mb-0">User Satisfaction</p>
-                                <small class="text-success">{{ satisfaction_percentage|default:0 }}% positive</small>
+                                <p class="text-muted mb-0">Удовлетворенность пользователей</p>
+                                <small class="text-success">{{ satisfaction_percentage|default:0 }}% положительных</small>
                             </div>
                         </div>
                     </div>
@@ -164,9 +164,9 @@
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
-                                    <i class="fas fa-history me-2"></i>Recent Conversations
+                                    <i class="fas fa-history me-2"></i>Недавние разговоры
                                 </h5>
-                                <a href="{% url 'chatbot:session_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+                                <a href="{% url 'chatbot:session_list' %}" class="btn btn-sm btn-outline-primary">Посмотреть все</a>
                             </div>
                             <div class="card-body">
                                 {% if recent_sessions %}
@@ -174,11 +174,11 @@
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>Visitor</th>
-                                                    <th>Topic</th>
-                                                    <th>Duration</th>
-                                                    <th>Lead Status</th>
-                                                    <th>Time</th>
+                                                    <th>Посетитель</th>
+                                                    <th>Тема</th>
+                                                    <th>Длительность</th>
+                                                    <th>Статус лида</th>
+                                                    <th>Время</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -208,11 +208,11 @@
                                 {% else %}
                                     <div class="text-center py-4">
                                         <i class="fas fa-comments fa-3x text-muted mb-3"></i>
-                                        <h5>No Conversations Yet</h5>
-                                        <p class="text-muted">Conversations will appear here when visitors start chatting with your AI assistant.</p>
+                                        <h5>Пока нет разговоров</h5>
+                                        <p class="text-muted">Разговоры появятся здесь, когда посетители начнут общаться с вашим ИИ помощником.</p>
                                         {% if not chatbot_active %}
                                         <a href="{% url 'lawyers:dashboard' %}" class="btn btn-primary">
-                                            <i class="fas fa-rocket me-2"></i>Publish Website
+                                            <i class="fas fa-rocket me-2"></i>Опубликовать сайт
                                         </a>
                                         {% endif %}
                                     </div>
@@ -226,52 +226,52 @@
                         <div class="card">
                             <div class="card-header">
                                 <h6 class="mb-0">
-                                    <i class="fas fa-sliders-h me-2"></i>Quick Settings
+                                    <i class="fas fa-sliders-h me-2"></i>Быстрые настройки
                                 </h6>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label class="form-label">Chatbot Status</label>
+                                    <label class="form-label">Статус чатбота</label>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" {% if chatbot_active %}checked{% endif %} disabled>
                                         <label class="form-check-label {% if chatbot_active %}text-success{% else %}text-warning{% endif %}">
-                                            {% if chatbot_active %}Active{% else %}Inactive{% endif %}
+                                            {% if chatbot_active %}Активен{% else %}Неактивен{% endif %}
                                         </label>
                                     </div>
                                     {% if not chatbot_active %}
-                                    <small class="text-muted">Publish your website to activate</small>
+                                    <small class="text-muted">Опубликуйте сайт для активации</small>
                                     {% endif %}
                                 </div>
                                 
                                 <div class="mb-3">
-                                    <label class="form-label">Auto-Collect Contacts</label>
+                                    <label class="form-label">Автосбор контактов</label>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" checked>
-                                        <label class="form-check-label">Enabled</label>
+                                        <label class="form-check-label">Включен</label>
                                     </div>
                                 </div>
                                 
                                 <div class="mb-3">
-                                    <label class="form-label">Primary Language</label>
+                                    <label class="form-label">Основной язык</label>
                                     <select class="form-select">
-                                        <option {% if request.user.lawyer_profile.primary_language == 'ru' %}selected{% endif %}>Russian</option>
-                                        <option {% if request.user.lawyer_profile.primary_language == 'ky' %}selected{% endif %}>Kyrgyz</option>
-                                        <option {% if request.user.lawyer_profile.primary_language == 'en' %}selected{% endif %}>English</option>
+                                        <option {% if request.user.lawyer_profile.primary_language == 'ru' %}selected{% endif %}>Русский</option>
+                                        <option {% if request.user.lawyer_profile.primary_language == 'ky' %}selected{% endif %}>Кыргызский</option>
+                                        <option {% if request.user.lawyer_profile.primary_language == 'en' %}selected{% endif %}>Английский</option>
                                     </select>
                                 </div>
                                 
                                 <div class="mb-4">
-                                    <label class="form-label">Response Style</label>
+                                    <label class="form-label">Стиль ответов</label>
                                     <select class="form-select">
-                                        <option selected>Professional</option>
-                                        <option>Friendly</option>
-                                        <option>Formal</option>
+                                        <option selected>Профессиональный</option>
+                                        <option>Дружелюбный</option>
+                                        <option>Формальный</option>
                                     </select>
                                 </div>
                                 
                                 <div class="d-grid">
                                     <a href="{% url 'chatbot:configuration' %}" class="btn btn-primary">
-                                        <i class="fas fa-cog me-2"></i>Advanced Settings
+                                        <i class="fas fa-cog me-2"></i>Расширенные настройки
                                     </a>
                                 </div>
                             </div>
@@ -281,13 +281,13 @@
                         <div class="card mt-4">
                             <div class="card-header">
                                 <h6 class="mb-0">
-                                    <i class="fas fa-brain me-2"></i>AI Performance
+                                    <i class="fas fa-brain me-2"></i>Производительность ИИ
                                 </h6>
                             </div>
                             <div class="card-body">
                                 {% if total_conversations > 0 %}
                                     <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <span>Response Quality</span>
+                                        <span>Качество ответов</span>
                                         <div class="progress" style="width: 100px;">
                                             <div class="progress-bar bg-success" style="width: 90%"></div>
                                         </div>
@@ -295,7 +295,7 @@
                                     </div>
                                     
                                     <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <span>Lead Conversion</span>
+                                        <span>Конверсия лидов</span>
                                         <div class="progress" style="width: 100px;">
                                             <div class="progress-bar bg-warning" style="width: {{ conversion_rate }}%"></div>
                                         </div>
@@ -303,7 +303,7 @@
                                     </div>
                                     
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span>User Satisfaction</span>
+                                        <span>Удовлетворенность пользователей</span>
                                         <div class="progress" style="width: 100px;">
                                             <div class="progress-bar bg-info" style="width: {{ satisfaction_percentage }}%"></div>
                                         </div>
@@ -312,7 +312,7 @@
                                 {% else %}
                                     <div class="text-center py-3">
                                         <i class="fas fa-chart-bar fa-2x text-muted mb-2"></i>
-                                        <p class="text-muted small">Performance metrics will appear after chatbot conversations</p>
+                                        <p class="text-muted small">Метрики производительности появятся после разговоров с чатботом</p>
                                     </div>
                                 {% endif %}
                             </div>
@@ -329,21 +329,21 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Test AI Chatbot</h5>
+                <h5 class="modal-title">Тестирование ИИ Чатбота</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <div class="chat-container" style="height: 400px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem;">
                     <div class="text-center text-muted">
                         <i class="fas fa-robot fa-2x mb-2"></i>
-                        <p>Start a test conversation with your AI assistant</p>
+                        <p>Начните тестовый разговор с вашим ИИ помощником</p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Type a test message..." id="testMessage">
-                    <button class="btn btn-primary" onclick="sendTestMessage()">Send</button>
+                    <input type="text" class="form-control" placeholder="Введите тестовое сообщение..." id="testMessage">
+                    <button class="btn btn-primary" onclick="sendTestMessage()">Отправить</button>
                 </div>
             </div>
         </div>

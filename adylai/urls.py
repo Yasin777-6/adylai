@@ -29,8 +29,8 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     
-    # Main platform (using same lawyers.urls for both)
-    path('', include('lawyers.urls')),  # This handles both register and dashboard
+    # Main platform
+    path('register/', include('lawyers.urls')),  # Registration and dashboard
     path('website/', include('website_builder.urls')),
     path('leads/', include('leads.urls')),
     path('chat/', include('chatbot.urls')),
@@ -42,8 +42,10 @@ urlpatterns = [
         path('website/', include('website_builder.api_urls')),
     ])),
     
-    # Public website pages (should be last to catch lawyer slugs)
+    # Home page
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    
+    # Public website pages (should be last to catch lawyer slugs)
     path('<slug:lawyer_slug>/', include('website_builder.public_urls')),
 ]
 

@@ -10,23 +10,23 @@
         <div class="col-lg-2 sidebar p-0">
             <div class="p-3">
                 <div class="text-center mb-4">
-                    <h6 class="mb-1">AI Chatbot</h6>
+                    <h6 class="mb-1">ИИ Чатбот</h6>
                     <small class="text-muted">{{ request.user.lawyer_profile.full_name }}</small>
                 </div>
                 
                 <nav class="nav flex-column">
                     <a class="nav-link" href="{% url 'chatbot:dashboard' %}">
-                        <i class="fas fa-robot"></i> Dashboard
+                        <i class="fas fa-robot"></i> Панель управления
                     </a>
                     <a class="nav-link" href="{% url 'chatbot:configuration' %}">
-                        <i class="fas fa-cog"></i> Settings
+                        <i class="fas fa-cog"></i> Настройки
                     </a>
                     <a class="nav-link active" href="{% url 'chatbot:analytics' %}">
-                        <i class="fas fa-chart-line"></i> Analytics
+                        <i class="fas fa-chart-line"></i> Аналитика
                     </a>
                     <hr>
                     <a class="nav-link" href="{% url 'lawyers:dashboard' %}">
-                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        <i class="fas fa-arrow-left"></i> Назад к панели управления
                     </a>
                 </nav>
             </div>
@@ -35,11 +35,11 @@
         <!-- Main Content -->
         <div class="col-lg-10 main-content">
             <div class="container-fluid py-4">
-                <h2 class="mb-4">Chatbot Analytics & Performance</h2>
+                <h2 class="mb-4">Аналитика и производительность чатбота</h2>
                 
                 <div class="alert alert-info">
                     <i class="fas fa-info-circle me-2"></i>
-                    <strong>Analytics Dashboard</strong> - Detailed conversation analytics will be available after your chatbot handles more conversations.
+                    <strong>Панель аналитики</strong> - Подробная аналитика разговоров будет доступна после того, как ваш чатбот обработает больше разговоров.
                 </div>
                 
                 <!-- Performance Overview -->
@@ -51,8 +51,8 @@
                                     <i class="fas fa-comments fa-lg"></i>
                                 </div>
                                 <h4 class="fw-bold text-primary">156</h4>
-                                <p class="text-muted mb-0">Total Conversations</p>
-                                <small class="text-success">+24 this week</small>
+                                <p class="text-muted mb-0">Всего разговоров</p>
+                                <small class="text-success">+24 на этой неделе</small>
                             </div>
                         </div>
                     </div>
@@ -64,8 +64,8 @@
                                     <i class="fas fa-percentage fa-lg"></i>
                                 </div>
                                 <h4 class="fw-bold text-success">68%</h4>
-                                <p class="text-muted mb-0">Lead Conversion</p>
-                                <small class="text-info">Above industry average</small>
+                                <p class="text-muted mb-0">Конверсия лидов</p>
+                                <small class="text-info">Выше среднего по отрасли</small>
                             </div>
                         </div>
                     </div>
@@ -77,8 +77,8 @@
                                     <i class="fas fa-clock fa-lg"></i>
                                 </div>
                                 <h4 class="fw-bold text-warning">1.2s</h4>
-                                <p class="text-muted mb-0">Avg Response Time</p>
-                                <small class="text-success">Excellent performance</small>
+                                <p class="text-muted mb-0">Среднее время ответа</p>
+                                <small class="text-success">Отличная производительность</small>
                             </div>
                         </div>
                     </div>
@@ -90,8 +90,8 @@
                                     <i class="fas fa-star fa-lg"></i>
                                 </div>
                                 <h4 class="fw-bold text-info">4.7</h4>
-                                <p class="text-muted mb-0">User Satisfaction</p>
-                                <small class="text-success">92% positive</small>
+                                <p class="text-muted mb-0">Удовлетворенность пользователей</p>
+                                <small class="text-success">92% положительных</small>
                             </div>
                         </div>
                     </div>
@@ -103,14 +103,14 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="mb-0">
-                                    <i class="fas fa-chart-area me-2"></i>Conversation Trends
+                                    <i class="fas fa-chart-area me-2"></i>Тренды разговоров
                                 </h5>
                             </div>
                             <div class="card-body">
                                 <div class="text-center py-5">
                                     <i class="fas fa-chart-line fa-3x text-muted mb-3"></i>
-                                    <h5>Advanced Analytics Coming Soon</h5>
-                                    <p class="text-muted">Detailed conversation patterns, peak hours, and performance metrics will be available as you get more chatbot usage.</p>
+                                    <h5>Расширенная аналитика скоро появится</h5>
+                                    <p class="text-muted">Подробные шаблоны разговоров, часы пик и метрики производительности будут доступны по мере увеличения использования чатбота.</p>
                                 </div>
                             </div>
                         </div>
@@ -119,12 +119,12 @@
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="card-header">
-                                <h6 class="mb-0">Most Asked Questions</h6>
+                                <h6 class="mb-0">Наиболее задаваемые вопросы</h6>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between">
-                                        <span class="small">Consultation pricing</span>
+                                        <span class="small">Стоимость консультации</span>
                                         <strong>23%</strong>
                                     </div>
                                     <div class="progress" style="height: 6px;">
@@ -134,7 +134,7 @@
                                 
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between">
-                                        <span class="small">Divorce process</span>
+                                        <span class="small">Процесс развода</span>
                                         <strong>18%</strong>
                                     </div>
                                     <div class="progress" style="height: 6px;">
@@ -144,7 +144,7 @@
                                 
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between">
-                                        <span class="small">Business registration</span>
+                                        <span class="small">Регистрация бизнеса</span>
                                         <strong>15%</strong>
                                     </div>
                                     <div class="progress" style="height: 6px;">
@@ -154,7 +154,7 @@
                                 
                                 <div class="mb-3">
                                     <div class="d-flex justify-content-between">
-                                        <span class="small">Contract review</span>
+                                        <span class="small">Проверка договоров</span>
                                         <strong>12%</strong>
                                     </div>
                                     <div class="progress" style="height: 6px;">
@@ -164,7 +164,7 @@
                                 
                                 <div>
                                     <div class="d-flex justify-content-between">
-                                        <span class="small">General questions</span>
+                                        <span class="small">Общие вопросы</span>
                                         <strong>32%</strong>
                                     </div>
                                     <div class="progress" style="height: 6px;">
@@ -176,23 +176,23 @@
                         
                         <div class="card mt-4">
                             <div class="card-header">
-                                <h6 class="mb-0">Peak Hours</h6>
+                                <h6 class="mb-0">Часы пик</h6>
                             </div>
                             <div class="card-body">
                                 <div class="small mb-2">
-                                    <strong>Busiest Hours:</strong>
+                                    <strong>Самые загруженные часы:</strong>
                                 </div>
-                                <div class="mb-1">10:00-12:00 <span class="badge bg-primary ms-2">High</span></div>
-                                <div class="mb-1">14:00-16:00 <span class="badge bg-warning ms-2">Medium</span></div>
-                                <div class="mb-1">19:00-21:00 <span class="badge bg-info ms-2">Medium</span></div>
+                                <div class="mb-1">10:00-12:00 <span class="badge bg-primary ms-2">Высокая</span></div>
+                                <div class="mb-1">14:00-16:00 <span class="badge bg-warning ms-2">Средняя</span></div>
+                                <div class="mb-1">19:00-21:00 <span class="badge bg-info ms-2">Средняя</span></div>
                                 
                                 <hr class="my-3">
                                 
                                 <div class="small mb-2">
-                                    <strong>Response Quality:</strong>
+                                    <strong>Качество ответов:</strong>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span>AI Accuracy</span>
+                                    <span>Точность ИИ</span>
                                     <div class="d-flex align-items-center">
                                         <div class="progress me-2" style="width: 80px; height: 8px;">
                                             <div class="progress-bar bg-success" style="width: 87%"></div>

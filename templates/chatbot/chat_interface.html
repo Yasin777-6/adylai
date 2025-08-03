@@ -302,6 +302,50 @@
             margin-bottom: 20px;
         }
         
+        .contact-form-container {
+            margin-top: 10px;
+            padding: 15px;
+            background: #f0f9eb;
+            border: 1px solid #e1f3d8;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .contact-form h6 {
+            color: var(--success-color);
+            margin-bottom: 10px;
+        }
+
+        .contact-form p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .contact-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .contact-form button:hover {
+            background: var(--secondary-color);
+        }
+        
         @media (max-width: 768px) {
             .chat-container {
                 height: 100vh;
@@ -385,20 +429,19 @@
     
     <script>
         // Chat configuration from Django
-        const chatConfig = {
-            lawyerName: '{{ chat_config.lawyer_name }}',
-            primaryLanguage: '{{ chat_config.primary_language }}',
-            specialties: {{ chat_config.specialties|default:"[]"|safe }},
-            consultationFee: {{ chat_config.consultation_fee|default:0 }},
-            yearsExperience: {{ chat_config.years_experience|default:0 }},
-            service: '{{ service }}'
+        let chatConfig = {
+            lawyerName: '{{ lawyer.user.get_full_name }}',
+            primaryLanguage: '{{ chat_config.primary_language|default:"ru" }}',
+            consultationFee: {{ lawyer.consultation_fee|default:0 }},
+            domain: '{{ lawyer.domain_slug }}'
         };
         
-        let conversationState = 'welcome';
+        let conversationState = 'greeting';
+        let messageCount = 0;
         let userInfo = {};
         let selectedAppointment = null;
-        let messageCount = 0;
-        
+        let currentSessionId = null;
+
         // Auto-resize textarea
         const messageInput = document.getElementById('messageInput');
         messageInput.addEventListener('input', function() {
@@ -419,289 +462,145 @@
             document.getElementById('messageInput').disabled = false;
             document.getElementById('sendBtn').disabled = false;
             
-            // Start with lawyer greeting
-            setTimeout(() => {
-                addLawyerMessage(getGreetingMessage());
-                conversationState = 'greeting';
-            }, 500);
+            // Initialize chat session
+            initializeChat();
         }
         
-        function getGreetingMessage() {
-            const language = chatConfig.primaryLanguage;
-            let greeting = '';
-            
-            if (language === 'ru') {
-                greeting = `Здравствуйте! Меня зовут ${chatConfig.lawyerName}, я юрист `;
-                if (chatConfig.specialties && chatConfig.specialties.length > 0) {
-                    greeting += `специализирующийся на ${chatConfig.specialties.join(', ')}. `;
+        // Initialize chat session
+        async function initializeChat() {
+            try {
+                const response = await fetch('/api/chat/start/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        lawyer_slug: chatConfig.domain,
+                        language: chatConfig.primaryLanguage
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    currentSessionId = data.session_id;
+                    // Add welcome message if provided
+                    if (data.message) {
+                        addLawyerMessage(data.message);
+                    }
+                } else {
+                    console.error('Failed to initialize chat session:', data.error);
+                    addLawyerMessage('Извините, произошла ошибка при инициализации чата. Пожалуйста, обновите страницу.');
                 }
-                if (chatConfig.service) {
-                    greeting += `Вижу, вас интересует "${chatConfig.service}". `;
-                }
-                greeting += `Как вас зовут и с каким правовым вопросом вы ко мне обратились?`;
-            } else if (language === 'ky') {
-                greeting = `Саламатсызбы! Менин атым ${chatConfig.lawyerName}, мен юристмин `;
-                if (chatConfig.specialties && chatConfig.specialties.length > 0) {
-                    greeting += `${chatConfig.specialties.join(', ')} боюнча адистешкен. `;
-                }
-                if (chatConfig.service) {
-                    greeting += `"${chatConfig.service}" менен кызыгып жатканыңызды көрүп турам. `;
-                }
-                greeting += `Атыңыз ким жана кандай укуктук суроо менен кайрылып жатасыз?`;
-            } else {
-                greeting = `Hello! My name is ${chatConfig.lawyerName}, I'm a lawyer `;
-                if (chatConfig.specialties && chatConfig.specialties.length > 0) {
-                    greeting += `specializing in ${chatConfig.specialties.join(', ')}. `;
-                }
-                if (chatConfig.service) {
-                    greeting += `I see you're interested in "${chatConfig.service}". `;
-                }
-                greeting += `What's your name and what legal matter can I help you with?`;
+            } catch (error) {
+                console.error('Error initializing chat:', error);
+                addLawyerMessage('Извините, произошла ошибка связи. Пожалуйста, обновите страницу.');
             }
-            
-            return greeting;
         }
-        
+
         function sendMessage() {
-            const input = document.getElementById('messageInput');
-            const message = input.value.trim();
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
             
-            if (!message) return;
+            if (message === '') return;
             
-            // Add user message
+            messageInput.value = '';
             addUserMessage(message);
-            input.value = '';
-            input.style.height = 'auto';
             
             // Show typing indicator
             showTyping();
             
-            // Process lawyer response based on conversation state
-            setTimeout(() => {
+            // Send message to AI backend
+            sendMessageToAI(message);
+        }
+
+        async function sendMessageToAI(message) {
+            try {
+                const response = await fetch('/api/chat/send/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSessionId,
+                        message: message
+                    })
+                });
+                
+                const data = await response.json();
                 hideTyping();
-                processUserMessage(message);
-                messageCount++;
-            }, 1500 + Math.random() * 1000); // Realistic response time
-        }
-        
-        function processUserMessage(message) {
-            const response = generateLawyerResponse(message);
-            addLawyerMessage(response.text, response.quickReplies, response.special);
-            
-            if (response.nextState) {
-                conversationState = response.nextState;
-            }
-        }
-        
-        function generateLawyerResponse(userMessage) {
-            const language = chatConfig.primaryLanguage;
-            
-            switch (conversationState) {
-                case 'greeting':
-                    return handleGreetingResponse(userMessage, language);
-                case 'collecting_phone':
-                    return handlePhoneCollection(userMessage, language);
-                case 'collecting_email':
-                    return handleEmailCollection(userMessage, language);
-                case 'legal_discussion':
-                    return handleLegalDiscussion(userMessage, language);
-                case 'offering_consultation':
-                    return handleConsultationOffer(userMessage, language);
-                case 'booking_appointment':
-                    return handleAppointmentBooking(userMessage, language);
-                default:
-                    return handleGeneralResponse(userMessage, language);
-            }
-        }
-        
-        function handleGreetingResponse(message, language) {
-            // Extract name and legal issue from message
-            const words = message.split(' ');
-            userInfo.name = words[0]; // Assume first word is name
-            userInfo.legalIssue = message;
-            
-            let response = '';
-            if (language === 'ru') {
-                response = `Приятно познакомиться, ${userInfo.name}! Понимаю ваш вопрос. `;
-                response += `Чтобы я мог вам лучше помочь, оставьте ваш номер телефона.`;
-            } else if (language === 'ky') {
-                response = `Таанышканыма кубанычтамын, ${userInfo.name}! Сурооңузду түшүндүм. `;
-                response += `Жакшыраак жардам берүү үчүн, телефон номериңизди калтырыңыз.`;
-            } else {
-                response = `Nice to meet you, ${userInfo.name}! I understand your question. `;
-                response += `To better help you, please leave your phone number.`;
-            }
-            
-            return {
-                text: response,
-                nextState: 'collecting_phone'
-            };
-        }
-        
-        function handlePhoneCollection(message, language) {
-            userInfo.phone = message;
-            
-            let response = '';
-            if (language === 'ru') {
-                response = `Спасибо! Теперь укажите ваш email адрес для записи на консультацию.`;
-            } else if (language === 'ky') {
-                response = `Рахмат! Эми консультацияга жазылуу үчүн email дарегиңизди көрсөтүңүз.`;
-            } else {
-                response = `Thank you! Now please provide your email address for scheduling consultation.`;
-            }
-            
-            return {
-                text: response,
-                nextState: 'collecting_email'
-            };
-        }
-        
-        function handleEmailCollection(message, language) {
-            userInfo.email = message;
-            
-            let response = '';
-            if (language === 'ru') {
-                response = `Отлично, ${userInfo.name}! Теперь по вашему вопросу: `;
-                response += `это довольно серьёзная ситуация, которая требует детального разбора. `;
-                response += `Я могу назначить вам консультацию для подробного обсуждения. `;
-                if (chatConfig.consultationFee > 0) {
-                    response += `Стоимость консультации: ${chatConfig.consultationFee} сом. `;
-                } else {
-                    response += `Первичная консультация бесплатная. `;
-                }
-                response += `Давайте я проверю мое расписание на эту неделю?`;
-            } else if (language === 'ky') {
-                response = `Сонун, ${userInfo.name}! Сиздин сурооңуз боюнча: `;
-                response += `бул өтө олуттуу жагдай, толук талкууну талап кылат. `;
-                response += `Толук талкуу үчүн консультация белгилей алам. `;
-                if (chatConfig.consultationFee > 0) {
-                    response += `Консультациянын баасы: ${chatConfig.consultationFee} сом. `;
-                } else {
-                    response += `Биринчи консультация акысыз. `;
-                }
-                response += `Ушул жумага расписаниемди текшерейинби?`;
-            } else {
-                response = `Excellent, ${userInfo.name}! Regarding your question: `;
-                response += `this is quite a serious situation that requires detailed discussion. `;
-                response += `I can schedule a consultation for you to discuss this thoroughly. `;
-                if (chatConfig.consultationFee > 0) {
-                    response += `Consultation fee: ${chatConfig.consultationFee} som. `;
-                } else {
-                    response += `Initial consultation is free. `;
-                }
-                response += `Let me check my schedule for this week?`;
-            }
-            
-            const quickReplies = language === 'ru' ? ['Да, проверьте расписание', 'Сначала ещё вопросы'] : 
-                               language === 'ky' ? ['Ооба, расписаниени текшериңиз', 'Алгач дагы суроолор'] :
-                               ['Yes, check schedule', 'I have more questions first'];
-            
-            return {
-                text: response,
-                quickReplies: quickReplies,
-                nextState: 'offering_consultation'
-            };
-        }
-        
-        function handleConsultationOffer(message, language) {
-            const wantsSchedule = ['да', 'yes', 'ооба', 'проверьте', 'текшериңиз', 'расписание'].some(word => 
-                message.toLowerCase().includes(word)
-            );
-            
-            if (wantsSchedule) {
-                let response = '';
-                if (language === 'ru') {
-                    response = `Отлично! У меня есть несколько свободных слотов на этой неделе. Выберите удобное время:`;
-                } else if (language === 'ky') {
-                    response = `Сонун! Ушул жумада бир нече бош убактым бар. Ыңгайлуу убакытты тандаңыз:`;
-                } else {
-                    response = `Great! I have several available slots this week. Choose a convenient time:`;
-                }
                 
-                return {
-                    text: response,
-                    special: 'appointment_booking',
-                    nextState: 'booking_appointment'
-                };
-            } else {
-                let response = '';
-                if (language === 'ru') {
-                    response = `Конечно! Задавайте ваши вопросы, я отвечу в рамках общей консультации. `;
-                    response += `Но помните, что для точного решения вашей ситуации лучше встретиться лично.`;
-                } else if (language === 'ky') {
-                    response = `Албетте! Суроолоруңузду бериңиз, жалпы консультация алкагында жооп берем. `;
-                    response += `Бирок эстеп коюңуз, кырдаалыңыздын так чечимин табуу үчүн жеке жолугушуу жакшы.`;
+                if (data.success) {
+                    // Add AI response
+                    addLawyerMessage(data.message);
+                    
+                    // Show contact form if AI suggests it and contact info not already collected
+                    if (data.should_collect_contact && data.contact_form) {
+                        setTimeout(() => {
+                            showContactForm(data.contact_form);
+                        }, 1000);
+                    }
                 } else {
-                    response = `Of course! Ask your questions, I'll answer within general consultation. `;
-                    response += `But remember, for an accurate solution to your situation, it's better to meet in person.`;
+                    console.error('Error from API:', data.error);
+                    addLawyerMessage('Извините, произошла ошибка. Пожалуйста, попробуйте еще раз.');
                 }
-                
-                return {
-                    text: response,
-                    nextState: 'legal_discussion'
-                };
+            } catch (error) {
+                hideTyping();
+                console.error('Error sending message:', error);
+                addLawyerMessage('Извините, произошла ошибка связи. Пожалуйста, попробуйте еще раз.');
             }
         }
-        
-        function handleAppointmentBooking(message, language) {
-            if (selectedAppointment) {
-                // Confirm booking
-                let response = '';
-                if (language === 'ru') {
-                    response = `✅ Превосходно! Консультация назначена на ${selectedAppointment}. `;
-                    response += `Я свяжусь с вами по телефону ${userInfo.phone} за день до встречи для подтверждения. `;
-                    response += `Также отправлю подтверждение на ${userInfo.email}. `;
-                    response += `До встречи, ${userInfo.name}!`;
-                } else if (language === 'ky') {
-                    response = `✅ Сонун! Консультация ${selectedAppointment} убагына белгиленди. `;
-                    response += `Жолугушуудан бир күн мурун ырастоо үчүн ${userInfo.phone} телефону аркылуу байланышат. `;
-                    response += `Ошондой эле ${userInfo.email} дарегиңизге ырастоо жөнөтөм. `;
-                    response += `Көрүшкөнгө чейин, ${userInfo.name}!`;
-                } else {
-                    response = `✅ Excellent! Consultation scheduled for ${selectedAppointment}. `;
-                    response += `I'll contact you at ${userInfo.phone} one day before the meeting for confirmation. `;
-                    response += `I'll also send confirmation to ${userInfo.email}. `;
-                    response += `See you soon, ${userInfo.name}!`;
-                }
-                
-                // Save appointment to backend
-                saveAppointment();
-                
-                return {
-                    text: response,
-                    nextState: 'completed'
-                };
-            }
+
+        function showContactForm(contactFormData) {
+            const contactFormHTML = `
+                <div class="contact-form-container">
+                    <div class="contact-form">
+                        <h6>${contactFormData.title}</h6>
+                        <p>${contactFormData.subtitle}</p>
+                        <form id="contactForm" onsubmit="submitContactForm(event)">
+                            ${contactFormData.fields.includes('name') ? '<input type="text" id="clientName" placeholder="Ваше имя" required>' : ''}
+                            ${contactFormData.fields.includes('phone') ? '<input type="tel" id="clientPhone" placeholder="Номер телефона" required>' : ''}
+                            ${contactFormData.fields.includes('email') ? '<input type="email" id="clientEmail" placeholder="Email адрес" required>' : ''}
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </form>
+                    </div>
+                </div>
+            `;
             
-            return { text: 'Пожалуйста, выберите время выше.' };
+            addLawyerMessage(contactFormHTML, null, true);
         }
-        
-        function handleLegalDiscussion(message, language) {
-            // Provide general legal guidance
-            let response = '';
-            if (language === 'ru') {
-                response = `По данному вопросу могу сказать следующее: каждая ситуация индивидуальна и требует изучения документов. `;
-                response += `В общем случае, по законодательству Кыргызстана... `;
-                response += `Но для вашего конкретного случая рекомендую всё же личную встречу. Записаться на консультацию?`;
-            } else if (language === 'ky') {
-                response = `Бул суроо боюнча төмөнкүдөй айта алам: ар бир жагдай жеке жана документтерди изилдөөнү талап кылат. `;
-                response += `Жалпы алганда, Кыргызстандын мыйзамдары боюнча... `;
-                response += `Бирок сиздин конкреттүү учуруңуз үчүн жеке жолугушууну сунуштайм. Консультацияга жазылабызбы?`;
-            } else {
-                response = `Regarding this question, I can say the following: each situation is individual and requires document review. `;
-                response += `In general, according to Kyrgyzstan legislation... `;
-                response += `But for your specific case, I recommend a personal meeting. Shall we schedule a consultation?`;
-            }
+
+        async function submitContactForm(event) {
+            event.preventDefault();
             
-            const quickReplies = language === 'ru' ? ['Да, записаться', 'Ещё вопросы'] : 
-                               language === 'ky' ? ['Ооба, жазылам', 'Дагы суроолор'] :
-                               ['Yes, schedule', 'More questions'];
-            
-            return {
-                text: response,
-                quickReplies: quickReplies,
-                nextState: 'offering_consultation'
+            const formData = {
+                session_id: currentSessionId,
+                name: document.getElementById('clientName')?.value || '',
+                phone: document.getElementById('clientPhone')?.value || '',
+                email: document.getElementById('clientEmail')?.value || ''
             };
+            
+            try {
+                const response = await fetch('/api/chat/contact/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Remove contact form and show success message
+                    document.querySelector('.contact-form-container').style.display = 'none';
+                    addLawyerMessage(data.message || 'Спасибо! Ваши данные получены. Я свяжусь с вами в ближайшее время.');
+                } else {
+                    alert('Ошибка при отправке данных. Пожалуйста, попробуйте еще раз.');
+                }
+            } catch (error) {
+                console.error('Error submitting contact form:', error);
+                alert('Ошибка при отправке данных. Пожалуйста, попробуйте еще раз.');
+            }
         }
         
         function addUserMessage(text) {
@@ -793,7 +692,7 @@
             
             setTimeout(() => {
                 hideTyping();
-                processUserMessage(text);
+                // processUserMessage(text); // This function is no longer needed
             }, 1000);
         }
         

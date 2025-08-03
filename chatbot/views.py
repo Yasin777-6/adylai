@@ -48,7 +48,7 @@ class ChatbotDashboardView(LoginRequiredMixin, TemplateView):
         total_sessions = ChatSession.objects.filter(lawyer=lawyer).count()
         today_sessions = ChatSession.objects.filter(
             lawyer=lawyer, 
-            created_at__date=timezone.now().date()
+            started_at__date=timezone.now().date()
         ).count()
         
         # Lead generation from chat
@@ -78,7 +78,7 @@ class ChatbotDashboardView(LoginRequiredMixin, TemplateView):
         satisfaction_percentage = round((avg_rating / 5 * 100)) if avg_rating > 0 else 0
         
         # Recent conversations
-        recent_sessions = ChatSession.objects.filter(lawyer=lawyer).order_by('-created_at')[:4]
+        recent_sessions = ChatSession.objects.filter(lawyer=lawyer).order_by('-started_at')[:4]
         
         context.update({
             'total_conversations': total_sessions,
@@ -126,7 +126,7 @@ class ChatSessionListView(LoginRequiredMixin, ListView):
     paginate_by = 20
     
     def get_queryset(self):
-        return ChatSession.objects.filter(lawyer=self.request.user.lawyer_profile).order_by('-created_at')
+        return ChatSession.objects.filter(lawyer=self.request.user.lawyer_profile).order_by('-started_at')
 
 
 class ChatSessionDetailView(LoginRequiredMixin, DetailView):
@@ -163,7 +163,7 @@ class ChatAnalyticsView(LoginRequiredMixin, TemplateView):
         total_conversations = ChatSession.objects.filter(lawyer=lawyer).count()
         conversations_this_week = ChatSession.objects.filter(
             lawyer=lawyer, 
-            created_at__date__gte=week_ago
+            started_at__date__gte=week_ago
         ).count()
         
         # Lead conversion analytics
@@ -208,7 +208,7 @@ class ChatAnalyticsView(LoginRequiredMixin, TemplateView):
         
         # Peak hours analysis (simplified)
         sessions_by_hour = ChatSession.objects.filter(lawyer=lawyer).extra(
-            select={'hour': 'EXTRACT(hour FROM created_at)'}
+            select={'hour': 'EXTRACT(hour FROM started_at)'}
         ).values('hour').annotate(count=Count('id')).order_by('-count')[:3]
         
         context.update({

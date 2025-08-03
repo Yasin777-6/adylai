@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}Website Builder - {{ request.user.lawyer_profile.full_name }}{% endblock %}
+{% block title %}Конструктор сайтов - {{ request.user.lawyer_profile.full_name }}{% endblock %}
 
 {% block content %}
 <div class="container-fluid">
@@ -10,32 +10,32 @@
         <div class="col-lg-2 sidebar p-0">
             <div class="p-3">
                 <div class="text-center mb-4">
-                    <h6 class="mb-1">Website Builder</h6>
+                    <h6 class="mb-1">Конструктор сайтов</h6>
                     <small class="text-muted">{{ request.user.lawyer_profile.full_name }}</small>
                 </div>
                 
                 <nav class="nav flex-column">
                     <a class="nav-link active" href="{% url 'website_builder:dashboard' %}">
-                        <i class="fas fa-tachometer-alt"></i>Overview
+                        <i class="fas fa-tachometer-alt"></i>Обзор
                     </a>
                     <a class="nav-link" href="{% url 'website_builder:edit' %}">
-                        <i class="fas fa-edit"></i>Edit Content
+                        <i class="fas fa-edit"></i>Редактировать контент
                     </a>
                     <a class="nav-link" href="{% url 'website_builder:page_list' %}">
-                        <i class="fas fa-file-alt"></i>Pages
+                        <i class="fas fa-file-alt"></i>Страницы
                     </a>
                     <a class="nav-link" href="{% url 'website_builder:template_list' %}">
-                        <i class="fas fa-paint-brush"></i>Templates
+                        <i class="fas fa-paint-brush"></i>Шаблоны
                     </a>
                     <a class="nav-link" href="{% url 'website_builder:asset_list' %}">
-                        <i class="fas fa-images"></i>Media
+                        <i class="fas fa-images"></i>Медиа
                     </a>
                     <a class="nav-link" href="{% url 'website_builder:analytics' %}">
-                        <i class="fas fa-chart-line"></i>Analytics
+                        <i class="fas fa-chart-line"></i>Аналитика
                     </a>
                     <hr>
                     <a class="nav-link" href="{% url 'lawyers:dashboard' %}">
-                        <i class="fas fa-arrow-left"></i>Back to Dashboard
+                        <i class="fas fa-arrow-left"></i>Назад к панели управления
                     </a>
                 </nav>
             </div>
@@ -48,16 +48,16 @@
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h1 class="page-title">Website Builder</h1>
-                            <p class="page-subtitle">Create and manage your professional legal website</p>
+                            <h1 class="page-title">Конструктор сайтов</h1>
+                            <p class="page-subtitle">Создавайте и управляйте вашим профессиональным юридическим сайтом</p>
                         </div>
                         <div class="col-auto">
                             <div class="btn-group">
                                 <a href="{% url 'website_builder:preview' %}" class="btn btn-outline-primary" target="_blank">
-                                    <i class="fas fa-eye me-2"></i>Preview
+                                    <i class="fas fa-eye me-2"></i>Предварительный просмотр
                                 </a>
                                 <a href="{% url 'website_builder:edit' %}" class="btn btn-primary">
-                                    <i class="fas fa-edit me-2"></i>Edit Website
+                                    <i class="fas fa-edit me-2"></i>Редактировать сайт
                                 </a>
                             </div>
                         </div>
@@ -75,8 +75,8 @@
                                 <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
                                     <i class="fas fa-globe fa-lg"></i>
                                 </div>
-                                <h5 class="fw-bold text-success">Published</h5>
-                                <p class="text-muted mb-0">Website Status</p>
+                                <h5 class="fw-bold text-success">Опубликован</h5>
+                                <p class="text-muted mb-0">Статус сайта</p>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                                     <i class="fas fa-file-alt fa-lg"></i>
                                 </div>
                                 <h5 class="fw-bold text-primary">5</h5>
-                                <p class="text-muted mb-0">Total Pages</p>
+                                <p class="text-muted mb-0">Всего страниц</p>
                             </div>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                                     <i class="fas fa-images fa-lg"></i>
                                 </div>
                                 <h5 class="fw-bold text-warning">12</h5>
-                                <p class="text-muted mb-0">Media Files</p>
+                                <p class="text-muted mb-0">Медиа файлов</p>
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                                     <i class="fas fa-eye fa-lg"></i>
                                 </div>
                                 <h5 class="fw-bold text-info">234</h5>
-                                <p class="text-muted mb-0">Monthly Views</p>
+                                <p class="text-muted mb-0">Просмотров в месяц</p>
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="mb-0">
-                                    <i class="fas fa-bolt me-2"></i>Quick Actions
+                                    <i class="fas fa-bolt me-2"></i>Быстрые действия
                                 </h5>
                             </div>
                             <div class="card-body">
@@ -132,25 +132,25 @@
                                     <div class="col-lg-3 col-md-6">
                                         <a href="{% url 'website_builder:edit' %}" class="btn btn-outline-primary w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
                                             <i class="fas fa-edit fa-2x mb-2"></i>
-                                            <span>Edit Content</span>
+                                            <span>Редактировать контент</span>
                                         </a>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <a href="{% url 'website_builder:page_create' %}" class="btn btn-outline-success w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
                                             <i class="fas fa-plus fa-2x mb-2"></i>
-                                            <span>Add Page</span>
+                                            <span>Добавить страницу</span>
                                         </a>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <a href="{% url 'website_builder:asset_upload' %}" class="btn btn-outline-warning w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
                                             <i class="fas fa-upload fa-2x mb-2"></i>
-                                            <span>Upload Media</span>
+                                            <span>Загрузить медиа</span>
                                         </a>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <a href="{% url 'website_builder:template_list' %}" class="btn btn-outline-info w-100 h-100 d-flex flex-column align-items-center justify-content-center py-4">
                                             <i class="fas fa-paint-brush fa-2x mb-2"></i>
-                                            <span>Change Theme</span>
+                                            <span>Изменить тему</span>
                                         </a>
                                     </div>
                                 </div>
@@ -165,10 +165,10 @@
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
-                                    <i class="fas fa-desktop me-2"></i>Website Preview
+                                    <i class="fas fa-desktop me-2"></i>Предварительный просмотр сайта
                                 </h5>
                                 <a href="{% url 'website_builder:preview' %}" class="btn btn-sm btn-outline-primary" target="_blank">
-                                    <i class="fas fa-external-link-alt me-1"></i>Full Preview
+                                    <i class="fas fa-external-link-alt me-1"></i>Полный просмотр
                                 </a>
                             </div>
                             <div class="card-body p-0">
@@ -184,7 +184,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <h6 class="mb-0">
-                                    <i class="fas fa-history me-2"></i>Recent Changes
+                                    <i class="fas fa-history me-2"></i>Недавние изменения
                                 </h6>
                             </div>
                             <div class="card-body">
@@ -193,8 +193,8 @@
                                         <i class="fas fa-edit fa-sm"></i>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <small class="text-muted">Updated homepage content</small>
-                                        <br><small class="text-muted">2 hours ago</small>
+                                        <small class="text-muted">Обновлен контент главной страницы</small>
+                                        <br><small class="text-muted">2 часа назад</small>
                                     </div>
                                 </div>
                                 
@@ -203,8 +203,8 @@
                                         <i class="fas fa-image fa-sm"></i>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <small class="text-muted">Added new photo gallery</small>
-                                        <br><small class="text-muted">1 day ago</small>
+                                        <small class="text-muted">Добавлена новая фотогалерея</small>
+                                        <br><small class="text-muted">1 день назад</small>
                                     </div>
                                 </div>
                                 
@@ -213,8 +213,8 @@
                                         <i class="fas fa-paint-brush fa-sm"></i>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <small class="text-muted">Changed website theme</small>
-                                        <br><small class="text-muted">3 days ago</small>
+                                        <small class="text-muted">Изменена тема сайта</small>
+                                        <br><small class="text-muted">3 дня назад</small>
                                     </div>
                                 </div>
                             </div>
@@ -224,25 +224,25 @@
                         <div class="card">
                             <div class="card-header">
                                 <h6 class="mb-0">
-                                    <i class="fas fa-search me-2"></i>SEO Status
+                                    <i class="fas fa-search me-2"></i>SEO Статус
                                 </h6>
                             </div>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span>Meta Descriptions</span>
-                                    <span class="badge bg-success">Complete</span>
+                                    <span>Мета описания</span>
+                                    <span class="badge bg-success">Завершено</span>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span>Page Titles</span>
-                                    <span class="badge bg-success">Complete</span>
+                                    <span>Заголовки страниц</span>
+                                    <span class="badge bg-success">Завершено</span>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span>Image Alt Text</span>
-                                    <span class="badge bg-warning">Partial</span>
+                                    <span>Alt текст изображений</span>
+                                    <span class="badge bg-warning">Частично</span>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span>Mobile Friendly</span>
-                                    <span class="badge bg-success">Yes</span>
+                                    <span>Мобильная версия</span>
+                                    <span class="badge bg-success">Да</span>
                                 </div>
                             </div>
                         </div>

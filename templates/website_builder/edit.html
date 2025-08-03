@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}Edit Website - {{ request.user.lawyer_profile.full_name }}{% endblock %}
+{% block title %}Редактировать сайт - {{ request.user.lawyer_profile.full_name }}{% endblock %}
 
 {% block content %}
 <div class="container-fluid h-100">
@@ -11,27 +11,27 @@
             <div class="p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h4 class="mb-0">
-                        <i class="fas fa-edit me-2"></i>Edit Website Content
+                        <i class="fas fa-edit me-2"></i>Редактировать контент сайта
                     </h4>
                     <div class="btn-group">
                         <button type="button" class="btn btn-outline-secondary" onclick="saveChanges()">
-                            <i class="fas fa-save me-1"></i>Save
+                            <i class="fas fa-save me-1"></i>Сохранить
                         </button>
                         <a href="{% url 'website_builder:preview' %}" class="btn btn-primary" target="_blank">
-                            <i class="fas fa-eye me-1"></i>Preview
+                            <i class="fas fa-eye me-1"></i>Предварительный просмотр
                         </a>
                     </div>
                 </div>
                 
                 <!-- Page Selector -->
                 <div class="mb-4">
-                    <label class="form-label">Edit Page:</label>
+                    <label class="form-label">Редактировать страницу:</label>
                     <select class="form-select" id="pageSelector" onchange="loadPageContent()">
-                        <option value="home">Home Page</option>
-                        <option value="about">About Us</option>
-                        <option value="services">Services</option>
-                        <option value="contact">Contact</option>
-                        <option value="blog">Blog</option>
+                        <option value="home">Главная страница</option>
+                        <option value="about">О нас</option>
+                        <option value="services">Услуги</option>
+                        <option value="contact">Контакты</option>
+                        <option value="blog">Блог</option>
                     </select>
                 </div>
                 
@@ -41,24 +41,24 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <h6 class="mb-0">
-                                <i class="fas fa-star me-2"></i>Hero Section
+                                <i class="fas fa-star me-2"></i>Главная секция
                             </h6>
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label class="form-label">Main Headline</label>
+                                <label class="form-label">Основной заголовок</label>
                                 <input type="text" class="form-control" id="heroTitle" 
-                                       value="Professional Legal Services in Kyrgyzstan" 
+                                       value="Профессиональные юридические услуги в Кыргызстане" 
                                        onchange="updatePreview()">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Subtitle</label>
-                                <textarea class="form-control" rows="2" id="heroSubtitle" onchange="updatePreview()">Experienced lawyer providing comprehensive legal solutions for individuals and businesses.</textarea>
+                                <label class="form-label">Подзаголовок</label>
+                                <textarea class="form-control" rows="2" id="heroSubtitle" onchange="updatePreview()">Опытный юрист, предоставляющий комплексные правовые решения для частных лиц и предприятий.</textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Call-to-Action Button Text</label>
+                                <label class="form-label">Текст кнопки призыва к действию</label>
                                 <input type="text" class="form-control" id="heroCTA" 
-                                       value="Schedule Consultation" 
+                                       value="Записаться на консультацию" 
                                        onchange="updatePreview()">
                             </div>
                         </div>
@@ -68,22 +68,22 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <h6 class="mb-0">
-                                <i class="fas fa-user me-2"></i>About Section
+                                <i class="fas fa-user me-2"></i>Секция "О нас"
                             </h6>
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label class="form-label">Section Title</label>
+                                <label class="form-label">Заголовок секции</label>
                                 <input type="text" class="form-control" id="aboutTitle" 
-                                       value="About {{ request.user.lawyer_profile.full_name }}" 
+                                       value="О {{ request.user.lawyer_profile.full_name }}" 
                                        onchange="updatePreview()">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Biography</label>
-                                <textarea class="form-control" rows="4" id="aboutText" onchange="updatePreview()">{{ request.user.lawyer_profile.bio|default:"Professional lawyer with extensive experience in various areas of law. Committed to providing high-quality legal services to clients throughout Kyrgyzstan." }}</textarea>
+                                <label class="form-label">Биография</label>
+                                <textarea class="form-control" rows="4" id="aboutText" onchange="updatePreview()">{{ request.user.lawyer_profile.bio|default:"Профессиональный юрист с обширным опытом в различных областях права. Стремлюсь предоставлять высококачественные юридические услуги клиентам по всему Кыргызстану." }}</textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Years of Experience</label>
+                                <label class="form-label">Лет опыта</label>
                                 <input type="number" class="form-control" id="yearsExperience" 
                                        value="{{ request.user.lawyer_profile.years_experience|default:5 }}" 
                                        onchange="updatePreview()">
@@ -95,24 +95,24 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <h6 class="mb-0">
-                                <i class="fas fa-briefcase me-2"></i>Services Section
+                                <i class="fas fa-briefcase me-2"></i>Секция услуг
                             </h6>
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <label class="form-label">Section Title</label>
+                                <label class="form-label">Заголовок секции</label>
                                 <input type="text" class="form-control" id="servicesTitle" 
-                                       value="Legal Services" 
+                                       value="Юридические услуги" 
                                        onchange="updatePreview()">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Services Description</label>
-                                <textarea class="form-control" rows="3" id="servicesDescription" onchange="updatePreview()">We provide comprehensive legal services to meet all your legal needs.</textarea>
+                                <label class="form-label">Описание услуг</label>
+                                <textarea class="form-control" rows="3" id="servicesDescription" onchange="updatePreview()">Мы предоставляем комплексные юридические услуги для удовлетворения всех ваших правовых потребностей.</textarea>
                             </div>
                             
                             <!-- Services List -->
                             <div id="servicesList">
-                                <label class="form-label">Services Offered:</label>
+                                <label class="form-label">Предлагаемые услуги:</label>
                                 <div class="row g-3">
                                     {% for specialty in request.user.lawyer_profile.specialties %}
                                     <div class="col-md-6">
@@ -125,13 +125,13 @@
                                     <div class="col-md-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" checked onchange="updatePreview()">
-                                            <label class="form-check-label">Civil Law</label>
+                                            <label class="form-check-label">Гражданское право</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" checked onchange="updatePreview()">
-                                            <label class="form-check-label">Business Law</label>
+                                            <label class="form-check-label">Бизнес право</label>
                                         </div>
                                     </div>
                                     {% endfor %}
@@ -144,29 +144,29 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <h6 class="mb-0">
-                                <i class="fas fa-phone me-2"></i>Contact Information
+                                <i class="fas fa-phone me-2"></i>Контактная информация
                             </h6>
                         </div>
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label">Phone Number</label>
+                                    <label class="form-label">Номер телефона</label>
                                     <input type="text" class="form-control" id="contactPhone" 
                                            value="{{ request.user.lawyer_profile.phone }}" 
                                            onchange="updatePreview()">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label">Email Address</label>
+                                    <label class="form-label">Email адрес</label>
                                     <input type="email" class="form-control" id="contactEmail" 
                                            value="{{ request.user.email }}" 
                                            onchange="updatePreview()">
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label">Office Address</label>
-                                    <textarea class="form-control" rows="2" id="contactAddress" onchange="updatePreview()">{{ request.user.lawyer_profile.firm.address|default:"Bishkek, Kyrgyzstan" }}</textarea>
+                                    <label class="form-label">Адрес офиса</label>
+                                    <textarea class="form-control" rows="2" id="contactAddress" onchange="updatePreview()">{{ request.user.lawyer_profile.firm.address|default:"Бишкек, Кыргызстан" }}</textarea>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label">Consultation Fee</label>
+                                    <label class="form-label">Стоимость консультации</label>
                                     <input type="number" class="form-control" id="consultationFee" 
                                            value="{{ request.user.lawyer_profile.consultation_fee }}" 
                                            onchange="updatePreview()">
@@ -179,18 +179,18 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <h6 class="mb-0">
-                                <i class="fas fa-palette me-2"></i>Theme & Colors
+                                <i class="fas fa-palette me-2"></i>Тема и цвета
                             </h6>
                         </div>
                         <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label">Primary Color</label>
+                                    <label class="form-label">Основной цвет</label>
                                     <input type="color" class="form-control form-control-color" 
                                            value="#1e3a8a" onchange="updatePreview()">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label">Secondary Color</label>
+                                    <label class="form-label">Вторичный цвет</label>
                                     <input type="color" class="form-control form-control-color" 
                                            value="#3b82f6" onchange="updatePreview()">
                                 </div>
@@ -202,10 +202,10 @@
                 <!-- Save Button -->
                 <div class="d-grid gap-2">
                     <button type="button" class="btn btn-primary btn-lg" onclick="saveChanges()">
-                        <i class="fas fa-save me-2"></i>Save All Changes
+                        <i class="fas fa-save me-2"></i>Сохранить все изменения
                     </button>
                     <a href="{% url 'website_builder:dashboard' %}" class="btn btn-outline-secondary">
-                        <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                        <i class="fas fa-arrow-left me-2"></i>Назад к панели управления
                     </a>
                 </div>
             </div>
@@ -216,7 +216,7 @@
             <div class="p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h5 class="mb-0">
-                        <i class="fas fa-eye me-2"></i>Live Preview
+                        <i class="fas fa-eye me-2"></i>Предварительный просмотр
                     </h5>
                     <div class="btn-group btn-group-sm">
                         <button type="button" class="btn btn-outline-secondary active" onclick="setPreviewMode('desktop')">

@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% load i18n %}
 
-{% block title %}Register - Lawyer Website Builder{% endblock %}
+{% block title %}Регистрация - AdylAI{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -12,9 +12,9 @@
                 <div class="card-header text-center bg-primary text-white">
                     <h3 class="mb-0">
                         <i class="fas fa-user-plus me-2"></i>
-                        Create Your Account
+                        Создайте ваш аккаунт
                     </h3>
-                    <p class="mb-0 mt-2">Join the leading platform for lawyers in Kyrgyzstan</p>
+                    <p class="mb-0 mt-2">Присоединяйтесь к ведущей платформе для юристов Кыргызстана</p>
                 </div>
                 <div class="card-body p-4">
                     <form method="post">
@@ -24,7 +24,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="{{ form.first_name.id_for_label }}" class="form-label">
-                                        <i class="fas fa-user me-1"></i>First Name
+                                        <i class="fas fa-user me-1"></i>Имя
                                     </label>
                                     {{ form.first_name }}
                                     {% if form.first_name.errors %}
@@ -35,7 +35,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="{{ form.last_name.id_for_label }}" class="form-label">
-                                        <i class="fas fa-user me-1"></i>Last Name
+                                        <i class="fas fa-user me-1"></i>Фамилия
                                     </label>
                                     {{ form.last_name }}
                                     {% if form.last_name.errors %}
@@ -47,18 +47,18 @@
                         
                         <div class="mb-3">
                             <label for="{{ form.username.id_for_label }}" class="form-label">
-                                <i class="fas fa-at me-1"></i>Username
+                                <i class="fas fa-at me-1"></i>Имя пользователя
                             </label>
                             {{ form.username }}
                             {% if form.username.errors %}
                                 <div class="text-danger small mt-1">{{ form.username.errors.0 }}</div>
                             {% endif %}
-                            <small class="form-text text-muted">This will be used for login</small>
+                            <small class="form-text text-muted">Будет использоваться для входа</small>
                         </div>
                         
                         <div class="mb-3">
                             <label for="{{ form.email.id_for_label }}" class="form-label">
-                                <i class="fas fa-envelope me-1"></i>Email Address
+                                <i class="fas fa-envelope me-1"></i>Email адрес
                             </label>
                             {{ form.email }}
                             {% if form.email.errors %}
@@ -68,18 +68,18 @@
                         
                         <div class="mb-3">
                             <label for="{{ form.phone.id_for_label }}" class="form-label">
-                                <i class="fas fa-phone me-1"></i>Phone Number
+                                <i class="fas fa-phone me-1"></i>Номер телефона
                             </label>
                             {{ form.phone }}
                             {% if form.phone.errors %}
                                 <div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>
                             {% endif %}
-                            <small class="form-text text-muted">Include country code (e.g., +996)</small>
+                            <small class="form-text text-muted">Включите код страны (например, +996)</small>
                         </div>
                         
                         <div class="mb-3">
                             <label for="{{ form.password1.id_for_label }}" class="form-label">
-                                <i class="fas fa-lock me-1"></i>Password
+                                <i class="fas fa-lock me-1"></i>Пароль
                             </label>
                             {{ form.password1 }}
                             {% if form.password1.errors %}
@@ -89,7 +89,7 @@
                         
                         <div class="mb-4">
                             <label for="{{ form.password2.id_for_label }}" class="form-label">
-                                <i class="fas fa-lock me-1"></i>Confirm Password
+                                <i class="fas fa-lock me-1"></i>Подтвердите пароль
                             </label>
                             {{ form.password2 }}
                             {% if form.password2.errors %}
@@ -101,19 +101,19 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="terms" required>
                                 <label class="form-check-label" for="terms">
-                                    I agree to the <a href="#" class="text-primary">Terms of Service</a> and 
-                                    <a href="#" class="text-primary">Privacy Policy</a>
+                                    Я согласен с <a href="#" class="text-primary">Условиями использования</a> и 
+                                    <a href="#" class="text-primary">Политикой конфиденциальности</a>
                                 </label>
                             </div>
                         </div>
                         
                         <button type="submit" class="btn btn-primary w-100 btn-lg">
-                            <i class="fas fa-user-plus me-2"></i>Create Account
+                            <i class="fas fa-user-plus me-2"></i>Создать аккаунт
                         </button>
                         
                         <div class="text-center mt-4">
-                            <p class="mb-0">Already have an account? 
-                                <a href="{% url 'login' %}" class="text-primary">Sign in here</a>
+                            <p class="mb-0">Уже есть аккаунт? 
+                                <a href="{% url 'login' %}" class="text-primary">Войдите здесь</a>
                             </p>
                         </div>
                     </form>
@@ -121,7 +121,7 @@
                 <div class="card-footer bg-light text-center">
                     <small class="text-muted">
                         <i class="fas fa-shield-alt me-1"></i>
-                        Your information is secure and protected
+                        Ваша информация защищена и в безопасности
                     </small>
                 </div>
             </div>
@@ -130,7 +130,7 @@
         <!-- Benefits sidebar -->
         <div class="col-lg-4 offset-lg-1">
             <div class="mt-4 mt-lg-0">
-                <h5 class="mb-4">Why Choose LawyerBuilder?</h5>
+                <h5 class="mb-4">Почему выбирают AdylAI?</h5>
                 
                 <div class="d-flex mb-3">
                     <div class="flex-shrink-0">
@@ -139,8 +139,8 @@
                         </div>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h6 class="mb-1">Quick Setup</h6>
-                        <small class="text-muted">Get your website live in under 30 minutes</small>
+                        <h6 class="mb-1">Быстрая настройка</h6>
+                        <small class="text-muted">Запустите ваш сайт менее чем за 30 минут</small>
                     </div>
                 </div>
                 
@@ -151,8 +151,8 @@
                         </div>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h6 class="mb-1">AI Assistant</h6>
-                        <small class="text-muted">24/7 client support with intelligent chatbot</small>
+                        <h6 class="mb-1">ИИ Помощник</h6>
+                        <small class="text-muted">Поддержка клиентов 24/7 с интеллектуальным чатботом</small>
                     </div>
                 </div>
                 
@@ -163,8 +163,8 @@
                         </div>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h6 class="mb-1">Lead Generation</h6>
-                        <small class="text-muted">Convert visitors into clients automatically</small>
+                        <h6 class="mb-1">Генерация лидов</h6>
+                        <small class="text-muted">Автоматически превращайте посетителей в клиентов</small>
                     </div>
                 </div>
                 
@@ -175,20 +175,20 @@
                         </div>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h6 class="mb-1">Multi-Language</h6>
-                        <small class="text-muted">Support for Russian, Kyrgyz, and English</small>
+                        <h6 class="mb-1">Многоязычность</h6>
+                        <small class="text-muted">Поддержка русского, кыргызского и английского языков</small>
                     </div>
                 </div>
                 
                 <div class="bg-light p-3 rounded mt-4">
                     <h6 class="text-primary">
-                        <i class="fas fa-gift me-2"></i>Free Trial Includes:
+                        <i class="fas fa-gift me-2"></i>Бесплатный пробный период включает:
                     </h6>
                     <ul class="list-unstyled mb-0 small">
-                        <li><i class="fas fa-check text-success me-2"></i>Full platform access</li>
-                        <li><i class="fas fa-check text-success me-2"></i>No credit card required</li>
-                        <li><i class="fas fa-check text-success me-2"></i>14 days free</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Setup assistance</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Полный доступ к платформе</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Кредитная карта не требуется</li>
+                        <li><i class="fas fa-check text-success me-2"></i>14 дней бесплатно</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Помощь в настройке</li>
                     </ul>
                 </div>
             </div>
